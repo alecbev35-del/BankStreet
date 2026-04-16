@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bristol Hero</title>
+  <style>
+    :root {
+      --page-bg: #D8CDC4;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--page-bg);
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #111;
+    }
+
+    .page {
+      min-height: 100vh;
+      background: var(--page-bg);
+    }
+
+    .hero {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0;
+      background: var(--page-bg);
+    }
+
+    .hero img {
+      display: block;
+      width: min(100%, 1600px);
+      height: auto;
+      object-fit: contain;
+    }
+
+    .blank-space {
+      min-height: 45vh;
+      background: var(--page-bg);
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-label="Hero image">
+      <img src="./website/bristol_building_plain_background_wide_1_fixed.png" alt="Illustrated Bristol sign and building on a warm neutral background" />
+    </section>
+    <section class="blank-space" aria-hidden="true"></section>
+  </main>
+</body>
+</html>
