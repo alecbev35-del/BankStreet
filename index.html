@@ -27,46 +27,83 @@
   <meta name="twitter:image:alt" content="Bank Street Quarters — illustrated building at dusk" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Cinzel:wght@400;500;600&family=Oswald:wght@300;400;500&family=Inter:wght@300;400;500&family=Italiana&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== Custom Bank Street Quarters brand fonts ===== */
+    @font-face {
+      font-family: 'Historycal';
+      src: url('./website/fonts/Historycal.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Historycal Inline';
+      src: url('./website/fonts/Historycal Inline.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Body Grotesque';
+      src: url('./website/fonts/Body-Grotesque-Large-Bold-trial.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'USDeclaration';
+      src: url('./website/fonts/USDeclaration.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
   <style>
     :root {
-      /* ===== Bank Street Quarters — Core Palette (v2) ===== */
-      --midnight:        #1E2233;   /* primary bg, hero panels */
-      --slate:           #2A3045;   /* secondary bg, cards, section breaks */
-      --ink:             #151826;   /* deep ink, footer, high-contrast framing */
-      --gold:            #B48743;   /* Heritage Gold — headlines, emblems */
-      --brass:           #8E6A39;   /* Antique Brass — borders, dividers */
-      --olive:           #66704A;   /* Muted Olive — badges, plaques */
-      --sand-gold:       #D2B073;   /* Warm Sand Gold — hover, elevated accents */
-      --stone:           #C7BDA8;   /* Aged Stone — body copy on dark */
+      /* ===== Bank Street Quarters — Two-color palette ===== */
+      --cream:          #FBEEDE;    /* Parchment Cream — background / base */
+      --forest:         #354830;    /* Forest Green — text, logos, dark surfaces */
 
-      /* Convenience aliases used throughout */
-      --night:           var(--midnight);
-      --night-2:         var(--ink);
-      --text-on-dark:    var(--stone);
-      --text-headline:   #EAE0CB;   /* warm off-white for primary headings */
+      /* Legacy aliases — everything collapses to forest or cream */
+      --midnight:       var(--forest);
+      --slate:          var(--forest);
+      --ink:            var(--forest);
+      --gold:           var(--forest);
+      --brass:          var(--forest);
+      --olive:          var(--forest);
+      --sand-gold:      var(--forest);
+      --bright-gold:    var(--forest);
+      --stone:          var(--forest);
+      --night:          var(--forest);
+      --night-2:        var(--forest);
+      --text-headline:  var(--forest);
+      --text-on-dark:   var(--forest);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html {
       min-height: 100%;
-      background: #F2E9D5;
+      background: #FBEEDE;
     }
 
     body {
       min-height: 100%;
       color: var(--text-on-dark);
-      font-family: 'Inter', Arial, Helvetica, sans-serif;
+      font-family: 'Cormorant', serif;
       font-weight: 400;
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
-      background-color: #F2E9D5;
-      background-image: url('./website/web/page-bg.jpg');
+      background-color: var(--cream);
+      background-image:
+        linear-gradient(rgba(53, 72, 48, 0.22), rgba(53, 72, 48, 0.22)),
+        url('./website/web/page-bg.jpg');
       background-size: cover;
       background-position: center top;
       background-repeat: no-repeat;
       background-attachment: fixed;
+      background-blend-mode: multiply, normal;
       position: relative;
     }
 
@@ -95,9 +132,8 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(21, 24, 38, 0.9);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--brass);
+      background: var(--forest);
+      border-bottom: 1px solid var(--cream);
     }
 
     .nav-inner {
@@ -106,27 +142,30 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 0.25rem;
-      padding: 0.85rem 1rem;
+      gap: 2.5rem;
+      padding: 1.1rem 1rem;
     }
 
     .nav a {
-      font-family: 'Cinzel', serif;
-      font-size: 0.88rem;
-      font-weight: 400;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--stone);
-      padding: 0.55rem 1.25rem;
+      font-family: 'Cormorant', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      color: var(--cream);
+      padding: 0.4rem 0.25rem;
       border-radius: 0;
       transition: color 0.2s, background 0.2s;
+      line-height: 1.1;
     }
 
-    .nav a:hover { color: var(--sand-gold); }
+    .nav a { color: var(--cream); }
+    .nav a:hover { color: var(--cream); opacity: 0.7; }
 
     .nav a.active {
-      color: var(--gold);
-      border-bottom: 1px solid var(--gold);
+      color: var(--cream);
+      opacity: 1;
+      border-bottom: 1px solid var(--cream);
     }
 
     /* ===== MAIN ===== */
@@ -139,13 +178,15 @@
     .section {
       display: none;
       animation: fadeIn 0.35s ease;
-      background-color: #F5F1E8;
-      border: 1px solid var(--brass);
+      background-color: #FBEEDE;
+      border: 1px solid var(--forest);
       border-radius: 2px;
       padding: 3.5rem clamp(1.25rem, 3.5vw, 3.5rem);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
       color: var(--ink);
     }
+
+    /* Home/Quarters section — full main width to fit cards & comparison */
 
     .section h1,
     .section h2,
@@ -155,8 +196,27 @@
 
     .section p.lead {
       color: var(--gold);
-      font-style: italic;
     }
+
+    /* Contact page uses the title font throughout — except step body copy
+       which switches to Sentient for readability at small sizes */
+    #contact,
+    #contact p,
+    #contact label,
+    #contact input,
+    #contact textarea,
+    #contact .btn,
+    #contact .step,
+    #contact .step-num {
+      font-family: 'Cormorant', serif;
+    }
+    #contact .step p {
+      font-family: 'Cormorant', serif;
+      font-weight: 500;
+    }
+    #contact p.lead { font-style: normal; }
+
+    /* #contact .step .step-num — inherits unified label style */
     .section.active { display: block; }
 
     @media (max-width: 640px) {
@@ -168,52 +228,69 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* Titles — Instrument Serif display */
     h1 {
-      font-family: 'Fraunces', serif;
-      font-weight: 400;
-      font-variation-settings: "opsz" 144, "SOFT" 30;
-      font-size: clamp(2.6rem, 5.5vw, 4rem);
+      font-family: 'Cormorant', serif;
+      font-weight: 700;
+      font-size: clamp(3rem, 6.5vw, 4.8rem);
       color: var(--text-headline);
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.005em;
-      line-height: 1.08;
+      margin-top: 0.1rem;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.005em;
+      line-height: 1.05;
     }
 
     h2 {
-      font-family: 'Fraunces', serif;
-      font-weight: 500;
-      font-variation-settings: "opsz" 96;
-      font-size: clamp(1.65rem, 2.8vw, 2.15rem);
+      font-family: 'Cormorant', serif;
+      font-weight: 700;
+      font-size: clamp(2.4rem, 3.8vw, 3.1rem);
       color: var(--text-headline);
-      letter-spacing: 0.01em;
+      letter-spacing: -0.005em;
+      line-height: 1.15;
       margin-bottom: 1rem;
     }
 
     h3 {
-      font-family: 'Fraunces', serif;
-      font-weight: 500;
-      font-size: 1.4rem;
+      font-family: 'Cormorant', serif;
+      font-weight: 700;
+      font-size: 2rem;
       color: var(--text-headline);
-      letter-spacing: 0.01em;
+      letter-spacing: -0.005em;
+      line-height: 1.2;
       margin-bottom: 0.4rem;
     }
 
     .eyebrow {
-      font-family: 'Cinzel', serif;
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.85rem;
+      font-family: 'Cormorant', serif;
+      font-size: clamp(2.2rem, 3.2vw, 2.8rem);
+      font-weight: 700;
+      font-style: italic;
+      letter-spacing: -0.02em;
+      text-transform: none;
+      color: var(--forest);
+      margin-bottom: 0;
+      line-height: 1.05;
+      -webkit-text-stroke: 0.4px var(--forest);
     }
 
     .script {
-      font-family: 'Italiana', serif;
-      font-size: 2rem;
-      color: var(--sand-gold);
-      letter-spacing: 0.02em;
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      color: var(--bright-gold);
+      letter-spacing: 0.01em;
       font-weight: 400;
+    }
+
+    .subhead-line {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+      font-weight: 500;
+      color: var(--forest);
+      margin-top: 0.15rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.25;
+      max-width: 52ch;
     }
 
     .divider {
@@ -223,14 +300,27 @@
       margin: 1.5rem 0 2.25rem;
     }
 
-    p { color: var(--text-on-dark); margin-bottom: 1rem; max-width: 62ch; line-height: 1.75; }
-    p.lead {
-      font-family: 'Italiana', serif;
-      font-size: 1.5rem;
-      color: var(--sand-gold);
-      letter-spacing: 0.015em;
-      line-height: 1.4;
+    p {
+      font-family: 'Cormorant', serif;
+      font-weight: 600;
+      font-size: 1.7rem;
+      color: var(--text-on-dark);
+      margin-bottom: 1rem;
+      max-width: 62ch;
+      line-height: 1.55;
     }
+    p.lead {
+      font-family: 'Cormorant', serif;
+      font-weight: 500;
+      font-size: clamp(1.6rem, 2.4vw, 2rem);
+      color: var(--forest);
+      letter-spacing: 0.01em;
+      line-height: 1.25;
+      max-width: 54ch;
+      margin-bottom: 1.5rem;
+    }
+
+    .section p.lead { color: var(--bright-gold); }
 
     /* ===== SUB-NAV ===== */
     .subnav {
@@ -246,7 +336,7 @@
       border: none;
       color: var(--ink);
       opacity: 0.65;
-      font-family: 'Oswald', sans-serif;
+      font-family: 'Cormorant', serif;
       font-size: 0.82rem;
       font-weight: 300;
       letter-spacing: 0.24em;
@@ -270,17 +360,283 @@
     .subpanel.active { display: block; }
 
     /* ===== CARDS ===== */
+    /* Two-platform badge row (Airbnb + Vrbo) */
+    .badge-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0 2.5rem;
+    }
+    @media (max-width: 720px) {
+      .badge-row { grid-template-columns: 1fr; }
+    }
+    .badge-card {
+      border: 1px solid var(--forest);
+      border-radius: 2px;
+      background: rgba(251, 238, 222, 0.5);
+      padding: 0.85rem 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .badge-platform {
+      font-family: 'Cormorant', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--forest);
+      opacity: 0.75;
+      padding-bottom: 0.6rem;
+      margin-bottom: 0.4rem;
+      border-bottom: 1px solid rgba(53, 72, 48, 0.2);
+      text-align: center;
+    }
+
+    /* Guest Favorite badge */
+    .guest-favorite {
+      text-align: center;
+      margin: 0;
+      padding: 1rem 0.5rem 0.5rem;
+      max-width: none;
+    }
+    .gf-medallion { width: 80px; height: 110px; }
+    .guest-favorite .gf-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+    }
+    .guest-favorite .gf-laurel {
+      width: 56px;
+      height: 84px;
+      color: var(--forest);
+      flex: 0 0 auto;
+    }
+    .guest-favorite .gf-score {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(4rem, 9vw, 6rem);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--forest);
+      letter-spacing: -0.02em;
+    }
+    .guest-favorite .gf-label {
+      font-family: 'Cormorant', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--forest);
+      margin-top: 0.75rem;
+    }
+    .guest-favorite .gf-desc {
+      font-family: 'Cormorant', serif;
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--forest);
+      opacity: 0.85;
+      margin: 0.5rem auto 0;
+      max-width: 44ch;
+      line-height: 1.45;
+    }
+    .guest-favorite .gf-desc strong { font-weight: 700; opacity: 1; }
+    .guest-favorite .gf-meta {
+      font-family: 'Cormorant', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--forest);
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(53, 72, 48, 0.25);
+    }
+
+    /* Home reviews showcase */
+    .home-reviews {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem 2.5rem;
+      margin-top: 1rem;
+    }
+    .home-review {
+      padding: 1.5rem 0 1.75rem;
+      border-top: 1px solid var(--forest);
+    }
+    .home-review .hr-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.85rem;
+      align-items: center;
+      margin-bottom: 0.65rem;
+    }
+    .home-review .hr-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--forest);
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .home-review .hr-name {
+      font-family: 'Cormorant', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--forest);
+      line-height: 1.1;
+    }
+    .home-review .hr-loc {
+      font-family: 'Cormorant', serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      font-style: italic;
+      color: var(--forest);
+      opacity: 0.7;
+      line-height: 1.2;
+    }
+    .home-review .hr-stars {
+      font-family: 'Cormorant', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--forest);
+      margin-bottom: 0.65rem;
+    }
+    .home-review .hr-stars span {
+      font-weight: 500;
+      font-style: italic;
+      letter-spacing: 0;
+      opacity: 0.7;
+      margin-left: 0.25rem;
+    }
+    .home-review p {
+      margin: 0;
+      max-width: none;
+      font-size: 1.15rem;
+      font-weight: 500;
+      line-height: 1.55;
+      color: var(--forest);
+    }
+
+    /* Quarters block in Home page — tight, intentional rhythm */
+    .quarters-header {
+      margin-top: 2.5rem;
+      margin-bottom: 0.4rem;
+    }
+    .quarters-sub {
+      margin-top: 0;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ===== Quarters view toggle ===== */
+    .quarters-view-toggle {
+      display: inline-flex;
+      gap: 0;
+      margin: 0 0 1.5rem;
+      border: 1px solid var(--forest);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .view-btn {
+      background: transparent;
+      color: var(--forest);
+      border: none;
+      padding: 0.6rem 1.4rem;
+      font-family: 'Cormorant', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .view-btn + .view-btn { border-left: 1px solid var(--forest); }
+    .view-btn:hover { background: rgba(53, 72, 48, 0.08); }
+    .view-btn.active { background: var(--forest); color: var(--cream); }
+
+    /* ===== Comparison table ===== */
+    .compare-view { margin-top: 0; }
+    .compare-scroll { overflow-x: auto; }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Cormorant', serif;
+      color: var(--forest);
+      min-width: 720px;
+    }
+    .compare-table thead th {
+      font-size: clamp(2.4rem, 3.8vw, 3.1rem);
+      font-weight: 700;
+      line-height: 1.1;
+      padding: 1.25rem 0.85rem 1.5rem;
+      text-align: center;
+      border-bottom: 2px solid var(--forest);
+    }
+    .compare-table thead th:first-child {
+      text-align: left;
+      border-bottom-color: rgba(53, 72, 48, 0.3);
+    }
+    .compare-table thead a {
+      color: var(--forest);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .compare-table thead a:hover { color: var(--gold); }
+    .compare-table tbody tr { border-bottom: 1px solid rgba(53, 72, 48, 0.15); }
+    .compare-table tbody tr:nth-child(even) { background: rgba(53, 72, 48, 0.06); }
+    .compare-table tbody tr:last-child { border-bottom: none; background: transparent; }
+    .compare-table tbody th {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-align: left;
+      padding: 0.85rem 1rem 0.85rem 0;
+      color: var(--forest);
+      white-space: nowrap;
+    }
+    .compare-table tbody td {
+      font-size: 1.2rem;
+      font-weight: 600;
+      padding: 0.85rem;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .compare-table td.check { color: var(--forest); }
+    .compare-table td.x { color: rgba(53, 72, 48, 0.45); }
+    .compare-table tr.compare-cta td { padding-top: 1.25rem; padding-bottom: 0.5rem; }
+    .btn-mini {
+      display: inline-block;
+      padding: 0.55rem 1.2rem;
+      border: 1px solid var(--forest);
+      color: var(--forest);
+      text-decoration: none;
+      font-family: 'Cormorant', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-mini:hover { background: var(--forest); color: var(--cream); }
+
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 2rem;
       margin-top: 1.5rem;
     }
+    @media (max-width: 700px) {
+      .cards { grid-template-columns: 1fr; }
+    }
 
     .card {
-      background-color: rgba(245, 239, 221, 0.94);
+      background-color: rgba(251, 238, 222, 0.94);
       backdrop-filter: blur(2px);
-      border: 1px solid var(--brass);
+      border: 1px solid var(--forest);
       border-radius: 2px;
       overflow: hidden;
       transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
@@ -319,9 +675,9 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      background: rgba(21, 26, 38, 0.75);
-      border: 1px solid var(--gold);
-      color: var(--gold);
+      background: rgba(53, 72, 48, 0.78);
+      border: 1px solid var(--cream);
+      color: var(--cream);
       font-size: 1.1rem;
       cursor: pointer;
       opacity: 0;
@@ -333,7 +689,7 @@
     }
 
     .carousel:hover .carousel-btn { opacity: 1; }
-    .carousel-btn:hover { background: var(--gold); color: var(--night); }
+    .carousel-btn:hover { background: var(--cream); color: var(--forest); }
     .carousel-btn.prev { left: 10px; }
     .carousel-btn.next { right: 10px; }
 
@@ -359,22 +715,67 @@
 
     .carousel-dot.active { background: var(--gold); }
 
-    .card-info {
-      padding: 1.4rem 1.5rem 1.6rem;
-      background: transparent;
+    .carousel-counter {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      background: rgba(53, 72, 48, 0.85);
+      color: var(--cream);
+      font-family: 'Cormorant', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--cream);
+      border-radius: 2px;
     }
-    .card-info h3 { margin-bottom: 0.15rem; color: var(--ink); }
+
+    .card-info {
+      padding: 1.6rem 1.5rem 1.75rem;
+      background: transparent;
+      text-align: center;
+    }
+    .card-info h3 {
+      margin: 0 0 0.4rem;
+      color: var(--ink);
+      font-size: clamp(2.2rem, 3.6vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.05;
+    }
+    .card-info .card-stats {
+      font-family: 'Cormorant', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--forest);
+      margin: 0 0 0.2rem;
+      line-height: 1.35;
+      max-width: none;
+    }
+    .card-info .card-feature {
+      font-family: 'Cormorant', serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      font-style: italic;
+      color: rgba(53, 72, 48, 0.75);
+      margin: 0;
+      line-height: 1.35;
+      max-width: none;
+    }
     .card-info .subtitle {
-      font-family: 'Italiana', serif;
-      font-size: 1.35rem;
-      color: var(--gold);
-      margin-bottom: 0.5rem;
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: 2rem;
+      color: var(--bright-gold);
+      margin-bottom: 0.6rem;
       line-height: 1;
       letter-spacing: 0.01em;
     }
     .card-info .details {
-      font-family: 'Oswald', sans-serif;
-      font-weight: 300;
+      font-family: 'Cormorant', serif;
+      font-weight: 500;
       font-size: 0.78rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -385,23 +786,388 @@
 
     .tag {
       display: inline-block;
-      padding: 0.35rem 0.85rem;
+      padding: 0.4rem 0.85rem;
       background: transparent;
-      color: var(--gold);
-      border: 1px solid var(--brass);
+      color: var(--forest);
+      border: 1px solid var(--forest);
       border-radius: 0;
-      font-family: 'Cinzel', serif;
-      font-size: 0.7rem;
-      font-weight: 400;
+      font-family: 'Cormorant', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.2em;
+    }
+
+    /* ===== CARD AS LINK ===== */
+    a.card-link { text-decoration: none; color: inherit; display: block; cursor: pointer; }
+    a.card-link:hover { text-decoration: none; }
+
+    /* ===== PROPERTY DETAIL PAGE ===== */
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.25rem;
+      font-family: 'Cormorant', serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--forest);
+      text-decoration: none;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+    .back-link:hover { opacity: 1; }
+
+    .property-gallery {
+      position: relative;
+      margin: 1.5rem auto 2rem;
+      max-width: 460px;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border: 1px solid var(--forest);
+      border-radius: 2px;
+      background: var(--cream);
+      cursor: zoom-in;
+    }
+
+    .property-gallery::after {
+      content: '⤢';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 2;
+      width: 30px;
+      height: 30px;
+      border-radius: 2px;
+      background: rgba(53, 72, 48, 0.85);
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    /* ===== Lightbox ===== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(21, 28, 21, 0.94);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox.open { display: flex; animation: lbFade 0.2s ease; }
+    @keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
+
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 88vh;
+      width: auto;
+      height: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--cream);
+    }
+
+    .lightbox .lb-close,
+    .lightbox .lb-prev,
+    .lightbox .lb-next {
+      position: absolute;
+      background: rgba(53, 72, 48, 0.7);
+      color: var(--cream);
+      border: 1px solid var(--cream);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      font-family: 'Cormorant', serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox .lb-close { top: 1.25rem; right: 1.25rem; font-size: 1.6rem; }
+    .lightbox .lb-prev  { left: 1.5rem;  top: 50%; transform: translateY(-50%); }
+    .lightbox .lb-next  { right: 1.5rem; top: 50%; transform: translateY(-50%); }
+    .lightbox .lb-close:hover,
+    .lightbox .lb-prev:hover,
+    .lightbox .lb-next:hover { background: var(--cream); color: var(--forest); }
+
+    .lightbox .lb-counter {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--cream);
+      font-family: 'Cormorant', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .property-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--forest);
+      border-bottom: 1px solid var(--forest);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .property-stats .stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .property-stats .stat-num {
+      font-family: 'Cormorant', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--forest);
+      line-height: 1;
+    }
+    .property-stats .stat-label {
+      font-family: 'Cormorant', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--forest);
+    }
+
+    .property-body {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 820px) {
+      .property-body { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    .property-main h2 { margin-top: 2rem; margin-bottom: 0.75rem; }
+    .property-main h2:first-child { margin-top: 0; }
+    .property-main p { max-width: none; }
+
+    .amenities {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.5rem 1.25rem;
+      list-style: none;
+      padding: 0;
+      margin: 0 0 0.5rem;
+    }
+    .amenities li {
+      font-family: 'Cormorant', serif;
+      font-weight: 500;
+      color: var(--forest);
+      padding: 0.35rem 0;
+      border-bottom: 1px solid rgba(53, 72, 48, 0.15);
+      line-height: 1.4;
+    }
+    .amenities li::before {
+      content: '·';
+      display: inline-block;
+      width: 1rem;
+      color: var(--forest);
+      font-weight: 700;
+    }
+
+    .property-book {
+      position: sticky;
+      top: 6.5rem;
+      background: var(--cream);
+      border: 1px solid var(--forest);
+      border-radius: 2px;
+      padding: 1.5rem 1.5rem 1.75rem;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+    }
+    .book-rate { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.25rem; }
+    .rate-num {
+      font-family: 'Cormorant', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--forest);
+      line-height: 1;
+    }
+    .rate-label {
+      font-family: 'Cormorant', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--forest);
+    }
+    .rate-meta {
+      font-family: 'Cormorant', serif;
+      font-size: 0.92rem;
+      color: rgba(53, 72, 48, 0.75);
+      margin-bottom: 1.25rem;
+    }
+    .property-book .btn { display: block; width: 100%; text-align: center; margin-bottom: 0.5rem; justify-self: stretch; }
+    .btn-alt {
+      background: var(--cream);
+      color: var(--forest);
+      border: 1px solid var(--forest);
+    }
+    .btn-alt:hover { background: var(--forest); color: var(--cream); }
+
+    .book-list {
+      list-style: none;
+      padding: 1rem 0 0;
+      margin: 0;
+      border-top: 1px solid rgba(53, 72, 48, 0.15);
+    }
+    .book-list li {
+      font-family: 'Cormorant', serif;
+      font-size: 0.88rem;
+      color: var(--forest);
+      padding: 0.3rem 0;
+      line-height: 1.4;
+    }
+
+    /* All sections — left-aligned with a gentle inset (not flush to the edge) */
+    .section { text-align: left; }
+    .section .divider { margin-left: 0; margin-right: 0; }
+    .section > p,
+    .section > p.lead,
+    .section > .subhead-line { max-width: none; }
+
+    /* About text + gallery, side by side */
+    .about-with-gallery {
+      display: grid;
+      grid-template-columns: 1fr 460px;
+      gap: 2.5rem;
+      align-items: start;
+      margin: 0 0 2rem;
+    }
+    .about-with-gallery .about-text h2 { margin-top: 0; margin-bottom: 0.75rem; }
+    .about-with-gallery .about-text p { max-width: none; }
+    .about-with-gallery .property-gallery { margin: 0; max-width: 100%; width: 100%; }
+    @media (max-width: 880px) {
+      .about-with-gallery { grid-template-columns: 1fr; gap: 1.5rem; }
+      .about-with-gallery .property-gallery { max-width: 460px; margin: 0 auto; }
+    }
+
+    /* Amenity sub-group heading */
+    .amen-group {
+      font-family: 'Cormorant', serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-top: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--forest);
+    }
+
+    /* Reviews summary */
+    .reviews-summary {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-areas: "score meta" "score cats";
+      gap: 0.5rem 1.5rem;
+      align-items: start;
+      padding: 1.25rem 1.5rem;
+      margin: 0 0 2rem;
+      border: 1px solid var(--forest);
+      border-radius: 2px;
+      background: var(--cream);
+    }
+    @media (max-width: 600px) {
+      .reviews-summary {
+        grid-template-columns: 1fr;
+        grid-template-areas: "score" "meta" "cats";
+      }
+    }
+
+    .reviews-score {
+      grid-area: score;
+      display: flex;
+      align-items: baseline;
+      font-family: 'Cormorant', serif;
+      line-height: 1;
+    }
+    .reviews-num {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--forest);
+    }
+    .reviews-denom {
+      font-size: 1.5rem;
+      color: rgba(53, 72, 48, 0.55);
+      margin-left: 0.1rem;
+    }
+    .reviews-meta { grid-area: meta; align-self: end; }
+    .reviews-title {
+      font-family: 'Cormorant', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--forest);
+      line-height: 1.1;
+    }
+    .reviews-count {
+      font-family: 'Cormorant', serif;
+      font-size: 0.9rem;
+      color: rgba(53, 72, 48, 0.65);
+      margin-top: 0.15rem;
+    }
+
+    .reviews-cats {
+      grid-area: cats;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.4rem 1rem;
+      padding-top: 0.5rem;
+    }
+    .reviews-cats .cat {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Cormorant', serif;
+      font-size: 0.92rem;
+      padding: 0.3rem 0;
+      border-bottom: 1px solid rgba(53, 72, 48, 0.15);
+    }
+    .cat-label { color: rgba(53, 72, 48, 0.7); }
+    .cat-num { font-weight: 500; color: var(--forest); }
+
+    /* Review cards grid */
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .review {
+      margin: 0;
+      padding: 1.25rem 1.4rem;
+      border: 1px solid rgba(53, 72, 48, 0.35);
+      border-radius: 2px;
+      background: var(--cream);
+    }
+    .review p {
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: 0.98rem;
+      color: var(--forest);
+      line-height: 1.55;
+      margin: 0 0 0.75rem;
+      max-width: none;
+    }
+    .review cite {
+      font-family: 'Cormorant', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-style: normal;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--forest);
     }
 
     /* ===== CALENDAR STUB ===== */
     .calendar-stub {
-      background-color: rgba(245, 239, 221, 0.94);
+      background-color: rgba(251, 238, 222, 0.94);
       backdrop-filter: blur(2px);
-      border: 1px solid var(--brass);
+      border: 1px solid var(--forest);
       border-radius: 2px;
       padding: 3rem 2rem;
       text-align: center;
@@ -411,6 +1177,59 @@
     .calendar-stub p { color: var(--ink); opacity: 0.75; margin: 0 auto; }
 
     /* ===== CONTACT FORM ===== */
+    /* ===== Phone-first CTA ===== */
+    .phone-cta {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding: 1.4rem 2rem;
+      background: var(--forest);
+      color: var(--cream);
+      border: 1px solid var(--forest);
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+      margin-top: 0.5rem;
+    }
+    .phone-cta:hover {
+      background: var(--cream);
+      color: var(--forest);
+      transform: translateY(-1px);
+    }
+    .phone-cta .phone-label {
+      font-family: 'Cormorant', serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+    .phone-cta .phone-number {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.05;
+    }
+    .phone-note {
+      font-family: 'Cormorant', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--forest);
+      opacity: 0.75;
+      margin-top: 0.75rem;
+      max-width: 48ch;
+    }
+    .form-intro {
+      font-family: 'Cormorant', serif;
+      font-size: 1.15rem;
+      color: var(--forest);
+      opacity: 0.85;
+      margin-bottom: 0.5rem;
+    }
+    .required-mark { color: var(--forest); font-weight: 700; margin-left: 0.15em; }
+    .optional-mark { color: var(--forest); opacity: 0.55; font-weight: 400; margin-left: 0.15em; }
+
     .contact-form {
       display: grid;
       gap: 1rem;
@@ -418,13 +1237,36 @@
       margin-top: 1rem;
     }
 
+    .contact-form select {
+      width: 100%;
+      background: #FFFFFF;
+      border: 1px solid var(--forest);
+      color: var(--ink);
+      padding: 0.85rem 1rem;
+      font-family: 'Cormorant', serif;
+      font-size: 1rem;
+      border-radius: 0;
+      transition: border-color 0.2s, background 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: linear-gradient(45deg, transparent 50%, var(--forest) 50%), linear-gradient(135deg, var(--forest) 50%, transparent 50%);
+      background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+      padding-right: 2rem;
+    }
+    .contact-form select:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
     .contact-form label {
-      font-family: 'Oswald', sans-serif;
-      font-weight: 300;
-      font-size: 0.76rem;
+      font-family: 'Cormorant', serif;
+      font-weight: 700;
+      font-size: 0.85rem;
       text-transform: uppercase;
-      letter-spacing: 0.24em;
-      color: var(--gold);
+      letter-spacing: 0.2em;
+      color: var(--forest);
       margin-bottom: 0.35rem;
       display: block;
     }
@@ -433,10 +1275,10 @@
     .contact-form textarea {
       width: 100%;
       background: #FFFFFF;
-      border: 1px solid var(--brass);
+      border: 1px solid var(--forest);
       color: var(--ink);
       padding: 0.85rem 1rem;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Cormorant', serif;
       font-size: 1rem;
       border-radius: 0;
       transition: border-color 0.2s, background 0.2s;
@@ -454,13 +1296,13 @@
     .btn {
       display: inline-block;
       background: transparent;
-      color: var(--gold);
-      border: 1px solid var(--gold);
+      color: var(--forest);
+      border: 1px solid var(--forest);
       padding: 0.95rem 2rem;
-      font-family: 'Cinzel', serif;
-      font-size: 0.82rem;
-      font-weight: 400;
-      letter-spacing: 0.28em;
+      font-family: 'Cormorant', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       border-radius: 0;
       cursor: pointer;
@@ -468,7 +1310,7 @@
       justify-self: start;
     }
 
-    .btn:hover { background: var(--gold); color: var(--midnight); border-color: var(--sand-gold); }
+    .btn:hover { background: var(--forest); color: var(--cream); }
 
     /* ===== STEPS ===== */
     .steps {
@@ -479,24 +1321,26 @@
     }
 
     .step {
-      background-color: rgba(245, 239, 221, 0.94);
+      background-color: rgba(251, 238, 222, 0.94);
       backdrop-filter: blur(2px);
-      border: 1px solid var(--brass);
+      border: 1px solid var(--forest);
       border-left: 2px solid var(--gold);
       padding: 1.4rem 1.5rem;
       border-radius: 0;
     }
 
     .step .step-num {
-      font-family: 'Cinzel', serif;
-      font-size: 0.74rem;
-      color: var(--gold);
-      letter-spacing: 0.32em;
+      font-family: 'Cormorant', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--forest);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
       margin-bottom: 0.5rem;
     }
 
-    .step h3 { font-size: 1.3rem; margin-bottom: 0.3rem; color: var(--ink); }
-    .step p { font-size: 0.92rem; color: var(--ink); opacity: 0.78; margin: 0; }
+    .step h3 { font-size: 1.5rem; margin-bottom: 0.4rem; color: var(--ink); }
+    .step p { font-size: 1.4rem; font-weight: 600; line-height: 1.55; color: var(--ink); margin: 0; }
 
     /* ===== PROPERTIES GRID — quarter in the middle ===== */
     .properties-grid {
@@ -542,7 +1386,7 @@
       height: auto;
       z-index: 3;
       border-radius: 50%;
-      box-shadow: 0 0 24px rgba(180, 135, 67, 0.35), 0 0 1px 1px rgba(21, 24, 38, 0.9);
+      box-shadow: 0 0 24px rgba(180, 135, 67, 0.35), 0 0 1px 1px rgba(53, 72, 48, 0.94);
     }
 
     .property-quadrant {
@@ -591,6 +1435,618 @@
       .property-quadrant:last-child { border-bottom: none; }
     }
 
+    /* ===== Location · h2 spacing ===== */
+    .location-h2 {
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+    }
+    #location .divider { margin-bottom: 1.5rem; }
+
+    /* Walking-distance grid */
+    .walk-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1px;
+      background: var(--forest);
+      border: 1px solid var(--forest);
+      margin-top: 1rem;
+    }
+    .walk-card {
+      background: var(--cream);
+      padding: 1.25rem 1.25rem 1.4rem;
+      text-align: center;
+    }
+    .walk-time {
+      font-family: 'Cormorant', serif;
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: var(--forest);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .walk-card.drive .walk-time { font-style: italic; }
+    .walk-place {
+      font-family: 'Cormorant', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--forest);
+      line-height: 1.25;
+    }
+    .walk-key {
+      font-family: 'Cormorant', serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--forest);
+      opacity: 0.75;
+      margin-top: 0.75rem;
+    }
+    .walk-key-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      vertical-align: middle;
+      margin-right: 0.35rem;
+    }
+    .walk-key-dot.walk { background: var(--forest); }
+    .walk-key-dot.drive { background: var(--cream); border: 1px solid var(--forest); }
+
+    /* "A perfect day" itinerary */
+    .day-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .day-block {
+      border-top: 2px solid var(--forest);
+      padding-top: 1.25rem;
+    }
+    .day-tod {
+      font-family: 'Cormorant', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--forest);
+      margin-bottom: 0.75rem;
+    }
+    .day-block p {
+      margin: 0;
+      font-size: 1.25rem;
+      max-width: none;
+    }
+
+    /* ===== Contact · Quick-pick paths ===== */
+    .contact-h2 { margin-top: 2.5rem; margin-bottom: 1rem; }
+    .path-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .path-card {
+      display: block;
+      padding: 1.4rem 1.4rem 1.5rem;
+      border: 1px solid var(--forest);
+      border-radius: 2px;
+      text-decoration: none;
+      color: var(--forest);
+      background: transparent;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .path-card:hover {
+      background: var(--forest);
+      color: var(--cream);
+      transform: translateY(-2px);
+    }
+    .path-card .path-label {
+      display: block;
+      font-family: 'Cormorant', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
+    }
+    .path-card .path-desc {
+      display: block;
+      font-family: 'Cormorant', serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* Contact channels — phone + meta side by side */
+    .contact-channels {
+      display: grid;
+      grid-template-columns: minmax(0, max-content) 1fr;
+      gap: 2rem;
+      align-items: center;
+      margin: 1rem 0 1rem;
+    }
+    @media (max-width: 700px) {
+      .contact-channels { grid-template-columns: 1fr; }
+    }
+    .channel-meta {
+      display: grid;
+      gap: 0.5rem;
+    }
+    .channel-row {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 1rem;
+      align-items: baseline;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(53, 72, 48, 0.18);
+    }
+    .channel-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .channel-key {
+      font-family: 'Cormorant', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--forest);
+    }
+    .channel-val {
+      font-family: 'Cormorant', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--forest);
+    }
+
+    /* Meet your host */
+    .host-block {
+      padding: 1.75rem 2rem 2rem;
+      border: 1px solid var(--forest);
+      border-radius: 2px;
+      background: rgba(251, 238, 222, 0.6);
+    }
+    .host-block p { margin: 0 0 0.85rem; max-width: none; font-size: 1.3rem; }
+    .host-block p:last-child { margin-bottom: 0; }
+
+    /* Host identity card — sits at the top of the block */
+    .host-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 2rem;
+      align-items: center;
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(53, 72, 48, 0.25);
+    }
+    @media (max-width: 640px) {
+      .host-card { grid-template-columns: 1fr; gap: 1.25rem; }
+    }
+    .host-card-id {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto;
+      column-gap: 1rem;
+      row-gap: 0.2rem;
+      align-items: center;
+    }
+    .host-avatar {
+      grid-row: 1 / span 2;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--forest);
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .host-card-name {
+      font-family: 'Cormorant', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--forest);
+      line-height: 1;
+      align-self: end;
+    }
+    .host-card-badge {
+      font-family: 'Cormorant', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--forest);
+      opacity: 0.75;
+    }
+    .host-card-stats {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 0 2rem;
+      align-items: end;
+    }
+    @media (max-width: 640px) {
+      .host-card-stats { grid-template-columns: repeat(3, 1fr); gap: 0 1rem; }
+    }
+    .host-stat { text-align: left; }
+    @media (max-width: 640px) {
+      .host-stat { text-align: center; }
+    }
+    .host-stat-num {
+      font-family: 'Cormorant', serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--forest);
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .host-stat-label {
+      font-family: 'Cormorant', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--forest);
+      opacity: 0.75;
+    }
+
+    /* FAQ accordion */
+    details.faq {
+      border-bottom: 1px solid rgba(53, 72, 48, 0.25);
+      padding: 1rem 0;
+    }
+    details.faq:first-of-type { border-top: 1px solid rgba(53, 72, 48, 0.25); }
+    details.faq summary {
+      cursor: pointer;
+      list-style: none;
+      font-family: 'Cormorant', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--forest);
+      padding-right: 2rem;
+      position: relative;
+      transition: color 0.2s;
+    }
+    details.faq summary::-webkit-details-marker { display: none; }
+    details.faq summary::after {
+      content: '+';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.8rem;
+      font-weight: 400;
+      line-height: 1;
+      transition: transform 0.2s;
+    }
+    details.faq[open] summary::after { content: '−'; }
+    details.faq summary:hover { color: var(--gold); }
+    details.faq p {
+      margin: 0.75rem 0 0.25rem;
+      max-width: none;
+      font-size: 1.2rem;
+    }
+
+    /* ===== Discover Bristol ===== */
+    /* Editorial category heading */
+    .discover-h2 {
+      margin-top: 4.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0;
+      border-bottom: none;
+      font-size: clamp(2rem, 3.2vw, 2.6rem);
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .discover-h2:first-of-type { margin-top: 2.5rem; }
+    .discover-h2 .h2-icon {
+      flex: 0 0 auto;
+      width: 1.6rem;
+      height: 1.6rem;
+      color: var(--forest);
+    }
+    .discover-h2 .h2-icon svg { width: 100%; height: 100%; display: block; }
+
+    /* Featured spotlight card — first card in a category */
+    .discover-spotlight {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: stretch;
+      margin: 0 0 1.5rem;
+      border-top: 1px solid var(--forest);
+      border-bottom: 1px solid var(--forest);
+      padding: 1.5rem 0;
+    }
+    @media (max-width: 720px) {
+      .discover-spotlight { grid-template-columns: 1fr; }
+    }
+    .discover-spotlight .photo-slot {
+      background: var(--forest);
+      color: var(--cream);
+      min-height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 1rem;
+      border-radius: 2px;
+    }
+    .discover-spotlight .photo-slot.has-image {
+      background-size: cover;
+      background-position: center;
+      color: transparent;
+    }
+    .discover-spotlight .spot-body { display: flex; flex-direction: column; justify-content: center; }
+    .discover-spotlight .spot-tag {
+      font-family: 'Cormorant', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--forest);
+      opacity: 0.75;
+      margin-bottom: 0.5rem;
+    }
+    .discover-spotlight h3 {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(1.8rem, 2.6vw, 2.3rem);
+      font-weight: 700;
+      color: var(--forest);
+      margin: 0 0 0.4rem;
+      line-height: 1.1;
+    }
+    .discover-spotlight .venue-meta {
+      font-family: 'Cormorant', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      font-style: italic;
+      color: var(--forest);
+      opacity: 0.75;
+      margin-bottom: 0.85rem;
+    }
+    .discover-spotlight > .spot-body > p:last-child {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 500;
+      line-height: 1.55;
+      max-width: none;
+    }
+
+    /* Editorial pull quote between categories */
+    .pull-quote {
+      margin: 3.5rem 0 2rem;
+      padding: 1.5rem 2rem;
+      border-left: 3px solid var(--forest);
+      border-top: 1px solid rgba(53, 72, 48, 0.18);
+      border-bottom: 1px solid rgba(53, 72, 48, 0.18);
+    }
+    .pull-quote p {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(1.5rem, 2.3vw, 1.9rem);
+      font-style: italic;
+      font-weight: 500;
+      line-height: 1.35;
+      color: var(--forest);
+      margin: 0 0 0.5rem;
+      max-width: none;
+    }
+    .pull-quote cite {
+      font-family: 'Cormorant', serif;
+      font-size: 0.95rem;
+      font-style: normal;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--forest);
+      opacity: 0.7;
+    }
+
+    /* Two-column editorial list */
+    .discover-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 4rem;
+      row-gap: 0;
+      border-top: 1px solid var(--forest);
+    }
+    @media (max-width: 720px) {
+      .discover-grid { grid-template-columns: 1fr; column-gap: 0; }
+    }
+    .discover-card {
+      padding: 1.5rem 0 1.6rem;
+      border: none;
+      border-bottom: 1px solid rgba(53, 72, 48, 0.18);
+      border-radius: 0;
+      background: transparent;
+      transition: none;
+    }
+    .discover-card:hover { transform: none; box-shadow: none; }
+
+    .discover-card h3 {
+      font-family: 'Cormorant', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--forest);
+      margin: 0 0 0.15rem;
+      line-height: 1.15;
+    }
+    .discover-card .venue-meta {
+      font-family: 'Cormorant', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      font-style: italic;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--forest);
+      opacity: 0.75;
+      margin: 0 0 0.65rem;
+      max-width: none;
+      line-height: 1.3;
+    }
+    .discover-card > p:last-child {
+      margin: 0;
+      max-width: none;
+      font-size: 1.15rem;
+      font-weight: 500;
+      line-height: 1.55;
+    }
+
+    /* Quick picks by mood — editorial two-column list */
+    .mood-table {
+      border-top: 1px solid var(--forest);
+      margin-top: 0.5rem;
+    }
+    .mood-row {
+      display: grid;
+      grid-template-columns: minmax(0, 320px) 1fr;
+      gap: 2.5rem;
+      align-items: baseline;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(53, 72, 48, 0.18);
+    }
+    @media (max-width: 600px) {
+      .mood-row { grid-template-columns: 1fr; gap: 0.25rem; padding: 0.9rem 0; }
+    }
+    .mood-want {
+      font-family: 'Cormorant', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      font-style: italic;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--forest);
+    }
+    .mood-go {
+      font-family: 'Cormorant', serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: var(--forest);
+    }
+
+    /* ===== Partners ===== */
+    .partners-h2 { margin-top: 3rem; margin-bottom: 1.25rem; }
+
+    .partner-featured {
+      display: grid;
+      grid-template-columns: minmax(0, max-content) 1fr;
+      gap: 2rem;
+      align-items: center;
+      padding: 2rem 2.25rem;
+      border: 1px solid var(--forest);
+      border-radius: 2px;
+      background: var(--forest);
+      color: var(--cream);
+      margin: 1rem 0 2rem;
+    }
+    @media (max-width: 700px) { .partner-featured { grid-template-columns: 1fr; } }
+    .partner-featured-label {
+      font-family: 'Cormorant', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0.85;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      white-space: nowrap;
+    }
+    @media (max-width: 700px) {
+      .partner-featured-label { writing-mode: horizontal-tb; transform: none; }
+    }
+    .partner-featured-name {
+      font-family: 'Cormorant', serif;
+      font-size: clamp(2rem, 3.6vw, 2.8rem);
+      font-weight: 700;
+      color: var(--cream);
+      margin: 0 0 0.5rem;
+      line-height: 1.05;
+    }
+    .partner-featured-body p { margin: 0; max-width: none; color: var(--cream); font-size: 1.2rem; opacity: 0.9; }
+
+    .partner-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+    .partner-card {
+      padding: 1.4rem 1.5rem 1.5rem;
+      border: 1px solid var(--forest);
+      border-radius: 2px;
+      background: var(--cream);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .partner-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+    }
+    .partner-card.placeholder {
+      background: transparent;
+      border-style: dashed;
+      opacity: 0.7;
+    }
+    .partner-card h3 {
+      font-family: 'Cormorant', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--forest);
+      margin: 0 0 0.25rem;
+      line-height: 1.15;
+    }
+    .partner-card .partner-tag {
+      font-family: 'Cormorant', serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--forest);
+      opacity: 0.7;
+      margin: 0 0 0.6rem;
+    }
+    .partner-card > p:last-child {
+      margin: 0;
+      max-width: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    /* Become-a-Partner CTA */
+    .partner-cta {
+      margin-top: 3.5rem;
+      padding: 2.25rem 2.5rem 2.5rem;
+      border: 1px solid var(--forest);
+      border-radius: 2px;
+      background: rgba(251, 238, 222, 0.6);
+    }
+    .partner-cta h2 { margin-top: 0; }
+    .partner-cta > p { font-size: 1.25rem; max-width: 62ch; }
+    .partner-cta-perks {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0 1.75rem;
+    }
+    .perk { border-top: 2px solid var(--forest); padding-top: 1rem; }
+    .perk-label {
+      font-family: 'Cormorant', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--forest);
+      margin-bottom: 0.5rem;
+    }
+    .perk p { margin: 0; max-width: none; font-size: 1.1rem; font-weight: 500; line-height: 1.5; }
+
     /* ===== LOCATION ===== */
     .location-grid {
       display: grid;
@@ -600,34 +2056,36 @@
     }
 
     .loc-card {
-      background-color: rgba(245, 239, 221, 0.94);
+      background-color: rgba(251, 238, 222, 0.94);
       backdrop-filter: blur(2px);
-      border: 1px solid var(--brass);
+      border: 1px solid var(--forest);
       padding: 1.5rem 1.6rem;
       border-radius: 0;
     }
 
     .loc-card h3 {
-      font-size: 1.25rem;
-      color: var(--gold);
-      margin-bottom: 0.4rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--forest);
+      margin-bottom: 0.5rem;
     }
 
-    .loc-card p { font-size: 0.94rem; color: var(--ink); opacity: 0.8; margin: 0; }
+    .loc-card p { font-size: 1.4rem; font-weight: 600; line-height: 1.55; color: var(--ink); margin: 0; }
 
     /* ===== FOOTER ===== */
     footer {
-      border-top: 1px solid var(--brass);
+      border-top: 1px solid var(--cream);
       padding: 2.5rem 1.5rem;
       text-align: center;
       font-size: 0.88rem;
-      background: var(--ink);
-      color: var(--stone);
+      background: var(--forest);
+      color: var(--cream);
     }
 
     footer .brand {
-      font-family: 'Cinzel', serif;
-      color: var(--gold);
+      font-family: 'Cormorant', serif;
+      font-weight: 700;
+      color: var(--cream);
       letter-spacing: 0.32em;
       text-transform: uppercase;
       margin-bottom: 0.5rem;
@@ -635,17 +2093,18 @@
     }
 
     footer .tagline {
-      font-family: 'Italiana', serif;
-      font-size: 1.6rem;
-      color: var(--sand-gold);
-      letter-spacing: 0.015em;
+      font-family: 'Cormorant', serif;
+      font-style: italic;
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      color: var(--cream);
+      letter-spacing: 0.01em;
       line-height: 1;
     }
 
     @media (max-width: 640px) {
       main { padding: 2.5rem 1rem 4rem; }
-      .nav-inner { gap: 0.15rem; }
-      .nav a { padding: 0.4rem 0.75rem; font-size: 0.8rem; letter-spacing: 0.14em; }
+      .nav-inner { gap: 1.25rem; padding: 0.8rem 0.75rem; }
+      .nav a { padding: 0.3rem 0.25rem; font-size: 1.3rem; letter-spacing: 0.02em; }
     }
   </style>
 </head>
@@ -659,167 +2118,1304 @@
   <!-- NAV -->
   <nav class="nav" aria-label="Primary">
     <div class="nav-inner">
-      <a href="#home" data-route="home">Home / About</a>
-      <a href="#properties" data-route="properties">Properties</a>
-      <a href="#location" data-route="location">Location</a>
+      <a href="#home" data-route="home">Home / Quarters</a>
       <a href="#contact" data-route="contact">Contact</a>
-      <a href="#partners" data-route="partners">Partners</a>
+      <a href="#discover" data-route="discover">Discover Bristol</a>
     </div>
   </nav>
 
   <main>
 
-    <!-- HOME / ABOUT -->
+    <!-- HOME / QUARTERS — combined -->
     <section class="section" id="home">
-      <p class="eyebrow">A Great Place to Stay</p>
+      <p class="eyebrow">Welcome to</p>
       <h1>Bank Street Quarters</h1>
+      <p class="subhead-line">Luxurious stay. Unmatched location.</p>
       <div class="divider"></div>
-      <p class="lead">A collection of thoughtfully designed luxury quarters in the heart of historic downtown Bristol, Tennessee.</p>
-      <p>Set against the warm glow of State Street, Bank Street Quarters blends the character of a classic main-street building with quiet, modern comforts. Whether you're here for a long weekend or an extended stay, each of our quarters is designed to feel like your own private address above the street.</p>
-      <p>Heritage architecture. Golden lamplight. Rooms that feel lived-in the moment you arrive.</p>
-    </section>
+      <p>A boutique stay at the heart of downtown Bristol — the center of the region, geographically and culturally. Everything is at your fingertips to discover; the only thing holding you back is your imagination.</p>
 
-    <!-- PROPERTIES -->
-    <section class="section" id="properties">
-      <p class="eyebrow">Our Quarters</p>
-      <h1>Properties</h1>
-      <div class="divider"></div>
+      <h2 class="quarters-header">Our Quarters</h2>
+      <p class="quarters-sub">Historic character meets modern comfort, designed for both quick getaways and extended stays.</p>
 
-      <div class="properties-grid">
-        <div class="lines-h" aria-hidden="true"></div>
-        <div class="lines-v" aria-hidden="true"></div>
+      <div class="quarters-view-toggle" role="tablist" aria-label="Quarters view">
+        <button class="view-btn active" data-view="cards" role="tab" aria-selected="true">Browse</button>
+        <button class="view-btn" data-view="compare" role="tab" aria-selected="false">Compare all</button>
+      </div>
 
-        <div class="property-quadrant q-tl">
-          <img class="sign" src="./website/web/signs/final_mint_14_background.png" alt="The Mint — 14" />
+      <!-- Comparison table view -->
+      <div class="compare-view" hidden>
+        <div class="compare-scroll">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col"><a href="#mint">The Mint</a></th>
+                <th scope="col"><a href="#vault">The Vault</a></th>
+                <th scope="col"><a href="#trust">The Trust</a></th>
+                <th scope="col"><a href="#teller">The Teller</a></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Capacity</th><td>2 guests</td><td>10 guests</td><td>4 guests</td><td>4 guests</td></tr>
+              <tr><th scope="row">Bedrooms</th><td>1</td><td>4</td><td>2</td><td>2</td></tr>
+              <tr><th scope="row">Bathrooms</th><td>1</td><td>3.5</td><td>2</td><td>2</td></tr>
+              <tr><th scope="row">Sq Ft</th><td>250</td><td>2,400</td><td>1,100</td><td>1,100</td></tr>
+              <tr><th scope="row">Stay type</th><td>Short stay</td><td>Short stay</td><td>Monthly lease</td><td>Monthly lease</td></tr>
+              <tr><th scope="row">Price</th><td>from $—</td><td>from $—</td><td>$2,100 / mo</td><td>$2,650 / mo</td></tr>
+              <tr><th scope="row">Pets</th><td class="x">✗</td><td class="x">✗</td><td class="check">✓ Dogs</td><td class="check">✓ Dogs &amp; cats</td></tr>
+              <tr><th scope="row">Parking</th><td class="check">✓ Reserved</td><td class="check">✓ Private</td><td class="check">✓ 2 spaces</td><td class="check">✓ Contact</td></tr>
+              <tr><th scope="row">Furnished</th><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+              <tr><th scope="row">Utilities</th><td>Included</td><td>Included</td><td>Inquire</td><td class="check">All-inclusive</td></tr>
+              <tr class="compare-cta">
+                <th scope="row"></th>
+                <td><a href="#mint" class="btn-mini">View</a></td>
+                <td><a href="#vault" class="btn-mini">View</a></td>
+                <td><a href="#trust" class="btn-mini">View</a></td>
+                <td><a href="#teller" class="btn-mini">View</a></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="property-quadrant q-tr">
-          <img class="sign" src="./website/web/signs/final_teller_14_backgroundreg.png" alt="The Teller — 18" />
-        </div>
-        <div class="property-quadrant q-bl">
-          <img class="sign" src="./website/web/signs/final_trust_14_background.png" alt="The Trust — 12" />
-        </div>
-        <div class="property-quadrant q-br">
-          <img class="sign" src="./website/web/signs/final_vault_16_background_v2reg.png" alt="The Vault — 16" />
+      </div>
+
+      <div class="cards">
+
+        <a class="card card-link" href="#mint" aria-label="View The Mint">
+          <div class="carousel" data-carousel data-property="mint" aria-label="The Mint photos"></div>
+          <div class="card-info">
+            <h3>The Mint</h3>
+            <p class="card-stats">Sleeps 2 · 1 bed · 1 bath · 250 sq ft</p>
+          </div>
+        </a>
+
+        <a class="card card-link" href="#vault" aria-label="View The Vault">
+          <div class="carousel" data-carousel data-property="vault" aria-label="The Vault photos"></div>
+          <div class="card-info">
+            <h3>The Vault</h3>
+            <p class="card-stats">Sleeps 10 · 4 beds · 3.5 baths · 2,400 sq ft</p>
+          </div>
+        </a>
+
+        <a class="card card-link" href="#trust" aria-label="View The Trust">
+          <div class="carousel" data-carousel data-property="trust" aria-label="The Trust photos"></div>
+          <div class="card-info">
+            <h3>The Trust</h3>
+            <p class="card-stats">2 beds · 2 baths · 1,100 sq ft · $2,100 / mo</p>
+          </div>
+        </a>
+
+        <a class="card card-link" href="#teller" aria-label="View The Teller">
+          <div class="carousel" data-carousel data-property="teller" aria-label="The Teller photos"></div>
+          <div class="card-info">
+            <h3>The Teller</h3>
+            <p class="card-stats">2 beds · 2 baths · 1,100 sq ft · $2,650 / mo</p>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- Guest reviews showcase -->
+      <h2 class="quarters-header">What Guests Are Saying</h2>
+
+      <div class="badge-row">
+        <!-- AIRBNB badge -->
+        <div class="badge-card">
+          <div class="badge-platform">Airbnb</div>
+          <div class="guest-favorite">
+            <div class="gf-row">
+              <svg class="gf-laurel left" viewBox="0 0 60 90" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                <path d="M50 5 C 35 15, 25 28, 22 45 C 20 60, 25 75, 38 85"/>
+                <path d="M45 14 C 38 16, 33 20, 32 28"/>
+                <path d="M38 25 C 30 27, 26 32, 26 40"/>
+                <path d="M32 38 C 25 40, 22 46, 23 54"/>
+                <path d="M28 52 C 22 55, 21 62, 25 68"/>
+                <path d="M28 67 C 25 73, 28 80, 35 82"/>
+              </svg>
+              <div class="gf-score">5.0</div>
+              <svg class="gf-laurel right" viewBox="0 0 60 90" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                <path d="M10 5 C 25 15, 35 28, 38 45 C 40 60, 35 75, 22 85"/>
+                <path d="M15 14 C 22 16, 27 20, 28 28"/>
+                <path d="M22 25 C 30 27, 34 32, 34 40"/>
+                <path d="M28 38 C 35 40, 38 46, 37 54"/>
+                <path d="M32 52 C 38 55, 39 62, 35 68"/>
+                <path d="M32 67 C 35 73, 32 80, 25 82"/>
+              </svg>
+            </div>
+            <div class="gf-label">Guest Favorite</div>
+            <p class="gf-desc">This home is in the <strong>top 10%</strong> of eligible listings based on ratings, reviews, and reliability.</p>
+            <div class="gf-meta">Bank Street Quarters · Superhost</div>
+          </div>
         </div>
 
-        <img class="quarter-center" src="./website/web/coin.png" alt="Bank Street Quarters coin" />
+        <!-- VRBO badge -->
+        <div class="badge-card">
+          <div class="badge-platform">Vrbo</div>
+          <div class="guest-favorite">
+            <div class="gf-row">
+              <svg class="gf-medallion" viewBox="0 0 80 110" aria-hidden="true">
+                <circle cx="40" cy="36" r="28" fill="var(--forest)" />
+                <path d="M22 55 L18 95 L34 82 Z M58 55 L62 95 L46 82 Z" fill="var(--forest)" opacity="0.7"/>
+                <text x="40" y="44" text-anchor="middle" font-family="Cormorant, serif" font-weight="700" font-size="22" fill="var(--cream)">10</text>
+              </svg>
+            </div>
+            <div class="gf-label">Loved by Guests</div>
+            <p class="gf-desc">This home is in the <strong>top 10%</strong> of guest reviews in the area.</p>
+            <div class="gf-meta">Bank Street Quarters · Premier Host</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-reviews">
+        <article class="home-review">
+          <header class="hr-head">
+            <div class="hr-avatar">L</div>
+            <div class="hr-id">
+              <div class="hr-name">Lori</div>
+              <div class="hr-loc">Maryville, Tennessee</div>
+            </div>
+          </header>
+          <div class="hr-stars" aria-label="5 stars">★★★★★ <span>· March 2026 · Group trip</span></div>
+          <p>"This Airbnb is an absolute gem. Very clean, nicely decorated — stylish and welcoming. Thoughtfully stocked kitchen with high-end appliances, spacious with plenty of room for the group."</p>
+        </article>
+
+        <article class="home-review">
+          <header class="hr-head">
+            <div class="hr-avatar">B</div>
+            <div class="hr-id">
+              <div class="hr-name">Brian</div>
+              <div class="hr-loc">Charlotte, North Carolina</div>
+            </div>
+          </header>
+          <div class="hr-stars" aria-label="5 stars">★★★★★ <span>· April 2026</span></div>
+          <p>"Bethany's place was perfect for my group. Plenty of room for all 5 of us, super comfortable seating in kitchen and living room. The deck was also very comfortable and inviting."</p>
+        </article>
+
+        <article class="home-review">
+          <header class="hr-head">
+            <div class="hr-avatar">P</div>
+            <div class="hr-id">
+              <div class="hr-name">Peter</div>
+              <div class="hr-loc">Charlotte, North Carolina</div>
+            </div>
+          </header>
+          <div class="hr-stars" aria-label="5 stars">★★★★★ <span>· Recent · Group trip</span></div>
+          <p>"Family believes this is one of the top 3 Airbnb places we have stayed, ever. The place is exceptional — kitchen, balcony, bedrooms, space. Less than a block off State Street."</p>
+        </article>
+
+        <article class="home-review">
+          <header class="hr-head">
+            <div class="hr-avatar">J</div>
+            <div class="hr-id">
+              <div class="hr-name">Joshua</div>
+              <div class="hr-loc">3 years on Airbnb</div>
+            </div>
+          </header>
+          <div class="hr-stars" aria-label="5 stars">★★★★★ <span>· February 2026 · Group trip</span></div>
+          <p>"One of the top three best all-around Airbnb stays I've ever experienced. The property was beautiful, clean, and thoughtfully set up, and the location couldn't have been more perfect."</p>
+        </article>
+
+        <article class="home-review">
+          <header class="hr-head">
+            <div class="hr-avatar">A</div>
+            <div class="hr-id">
+              <div class="hr-name">Ann</div>
+              <div class="hr-loc">9 years on Airbnb</div>
+            </div>
+          </header>
+          <div class="hr-stars" aria-label="5 stars">★★★★★ <span>· April 2026 · Stayed with kids</span></div>
+          <p>"Enjoyed our stay at Bethany's place. Clean and comfortable. We were involved with wedding activities and dined out for our meals — the property was a perfect base."</p>
+        </article>
+
+        <article class="home-review">
+          <header class="hr-head">
+            <div class="hr-avatar">J</div>
+            <div class="hr-id">
+              <div class="hr-name">Julie</div>
+              <div class="hr-loc">Huntersville, North Carolina</div>
+            </div>
+          </header>
+          <div class="hr-stars" aria-label="5 stars">★★★★★ <span>· January 2026 · Stayed with kids</span></div>
+          <p>"The condo was great. Centrally located to what activities are available in town. We came in for a family wedding — would absolutely book again."</p>
+        </article>
       </div>
     </section>
 
-    <!-- LOCATION -->
-    <section class="section" id="location">
-      <p class="eyebrow">Downtown Bristol, TN</p>
-      <h1>Location</h1>
-      <div class="divider"></div>
-      <h2>Why we chose this location</h2>
-      <p>Bristol sits at the crossroads of music history and mountain country — the official Birthplace of Country Music, with State Street running right down the Tennessee–Virginia line. Our quarters are a short walk from the best of downtown: restaurants, live venues, the Birthplace of Country Music Museum, and the iconic Bristol sign.</p>
+    <!-- THE MINT — detail page -->
+    <section class="section property-detail" id="mint">
+      <a href="#home" class="back-link">&larr; Back to Quarters</a>
+      <h1>The Mint</h1>
 
-      <div class="location-grid">
-        <div class="loc-card">
-          <h3>State Street</h3>
-          <p>Steps from restaurants, coffee, and live music. The heartbeat of downtown is right outside the door.</p>
+      <div class="property-stats">
+        <div class="stat"><span class="stat-num">2</span><span class="stat-label">Guests</span></div>
+        <div class="stat"><span class="stat-num">1</span><span class="stat-label">Bedroom</span></div>
+        <div class="stat"><span class="stat-num">1</span><span class="stat-label">Bathroom</span></div>
+        <div class="stat"><span class="stat-num">250</span><span class="stat-label">Sq Ft</span></div>
+      </div>
+
+      <!-- About + Gallery, side-by-side -->
+      <div class="about-with-gallery">
+        <div class="about-text">
+          <h2>About</h2>
+          <p>Welcome to "The Mint" — a stylish and cozy 1-bedroom hotel suite with thoughtful amenities designed for your comfort, including Wi-Fi, a smart TV, heating and air conditioning, a mini fridge, and a beautifully tiled tub/shower. The bathroom is modern and well-appointed for all your needs.</p>
         </div>
-        <div class="loc-card">
-          <h3>Music Heritage</h3>
-          <p>The Birthplace of Country Music Museum and a year-round calendar of performances sit within a few blocks.</p>
+        <div class="property-gallery" data-carousel data-property="mint" aria-label="The Mint photos"></div>
+      </div>
+
+      <!-- Guest-review summary -->
+      <div class="reviews-summary">
+        <div class="reviews-score">
+          <span class="reviews-num">10</span><span class="reviews-denom">/10</span>
         </div>
-        <div class="loc-card">
-          <h3>Mountain Access</h3>
-          <p>South Holston Lake, the Blue Ridge, and Appalachian hikes are a short drive. City by night, mountains by day.</p>
+        <div class="reviews-meta">
+          <div class="reviews-title">Exceptional</div>
+          <div class="reviews-count">22 verified reviews</div>
         </div>
-        <div class="loc-card">
-          <h3>Bristol Motor Speedway</h3>
-          <p>Race weekends are a short drive from our front door. Stay close to the action without the traffic.</p>
+        <div class="reviews-cats">
+          <div class="cat"><span class="cat-label">Cleanliness</span><span class="cat-num">9.8</span></div>
+          <div class="cat"><span class="cat-label">Check-in</span><span class="cat-num">10</span></div>
+          <div class="cat"><span class="cat-label">Communication</span><span class="cat-num">10</span></div>
+          <div class="cat"><span class="cat-label">Location</span><span class="cat-num">9.8</span></div>
         </div>
+      </div>
+
+      <div class="property-body">
+        <div class="property-main">
+
+          <h2>Amenities</h2>
+
+          <h3 class="amen-group">Essentials</h3>
+          <ul class="amenities">
+            <li>Wi-Fi &amp; wireless internet</li>
+            <li>Air conditioning</li>
+            <li>Heating</li>
+            <li>Linens &amp; towels provided</li>
+            <li>Hair dryer</li>
+            <li>Basic soaps, toilet paper</li>
+          </ul>
+
+          <h3 class="amen-group">Kitchen</h3>
+          <ul class="amenities">
+            <li>Stove &amp; oven</li>
+            <li>Microwave</li>
+            <li>Dishwasher</li>
+            <li>Mini fridge</li>
+            <li>Outdoor grill</li>
+          </ul>
+
+          <h3 class="amen-group">Entertainment &amp; Laundry</h3>
+          <ul class="amenities">
+            <li>Smart TV</li>
+            <li>In-unit washer</li>
+            <li>In-unit dryer</li>
+          </ul>
+
+          <h3 class="amen-group">Parking &amp; Safety</h3>
+          <ul class="amenities">
+            <li>Reserved parking</li>
+            <li>Smoke detector</li>
+            <li>Carbon monoxide detector</li>
+          </ul>
+
+          <h3 class="amen-group">Nearby Activities</h3>
+          <ul class="amenities">
+            <li>Museums</li>
+            <li>Live music &amp; venues</li>
+            <li>Shopping &amp; antiquing</li>
+            <li>Hiking &amp; mountain biking</li>
+            <li>Boating, kayaking &amp; rafting</li>
+            <li>Fishing &amp; marina</li>
+            <li>Golf</li>
+            <li>Winery tours</li>
+            <li>Health &amp; beauty spa</li>
+            <li>Spelunking</li>
+            <li>Outlet &amp; duty-free shopping</li>
+            <li>Gambling casinos</li>
+          </ul>
+
+          <h2>Good to Know</h2>
+          <ul class="amenities">
+            <li>Minimum age limit for renters</li>
+            <li>No pets</li>
+            <li>Smoke &amp; carbon monoxide detectors</li>
+            <li>No hidden fees — all-inclusive pricing</li>
+          </ul>
+
+          <h2>What Guests Are Saying</h2>
+          <div class="review-grid">
+            <blockquote class="review">
+              <p>"This is a great place to stay! The location is perfect for walking to explore the cute shops and restaurants on State Street as well as the live music on the weekends. The room was cozy and cutely decorated. We will be booking again when in the area!"</p>
+              <cite>— Shana R. · Stayed 2 nights, Aug 2025</cite>
+            </blockquote>
+            <blockquote class="review">
+              <p>"Great proximity to the Paramount if you're in town for a show or concert. Plenty of shops and restaurants within walking distance."</p>
+              <cite>— Jason S. · Stayed 1 night, Mar 2026</cite>
+            </blockquote>
+            <blockquote class="review">
+              <p>"We had a great stay! The property was very clean and our communication with Bethany was outstanding — extremely responsive. Rental is within walking distance to downtown. Would definitely stay here again!"</p>
+              <cite>— Mark R. · Stayed 1 night, Nov 2025</cite>
+            </blockquote>
+            <blockquote class="review">
+              <p>"Perfect for a solo or couple. Highly recommend Bistro on 6th for a bite. Enjoyed our stay!"</p>
+              <cite>— Kelsey · Stayed 1 night, Apr 2025</cite>
+            </blockquote>
+            <blockquote class="review">
+              <p>"Perfect couples get-away! Very nice room in a great location."</p>
+              <cite>— Christopher M. · Stayed 2 nights, Feb 2026</cite>
+            </blockquote>
+            <blockquote class="review">
+              <p>"Fantastic stay. Right next to the Paramount Theatre — super convenient walking over to the concert. Will definitely come back."</p>
+              <cite>— Verified guest · Oct 2025</cite>
+            </blockquote>
+          </div>
+        </div>
+
+        <aside class="property-book">
+          <div class="book-rate">
+            <span class="rate-num">$—</span>
+            <span class="rate-label">/ night</span>
+          </div>
+          <p class="rate-meta">All-inclusive pricing. No hidden fees.</p>
+          <a href="#" class="btn" aria-disabled="true">Book on VRBO</a>
+          <a href="#contact" class="btn btn-alt">Inquire direct</a>
+          <ul class="book-list">
+            <li>Sleeps 2 · 1 bed · 1 bath · 250 sq ft</li>
+            <li>Reserved parking included</li>
+            <li>Self check-in with a personal touch</li>
+            <li>10/10 rating · 22 verified reviews</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- THE VAULT — detail page -->
+    <section class="section property-detail" id="vault">
+      <a href="#home" class="back-link">&larr; Back to Quarters</a>
+      <h1>The Vault</h1>
+      <p class="subhead-line">The penthouse Bristol was missing — designed for entertaining.</p>
+
+      <div class="property-stats">
+        <div class="stat"><span class="stat-num">10</span><span class="stat-label">Guests</span></div>
+        <div class="stat"><span class="stat-num">4</span><span class="stat-label">Bedrooms</span></div>
+        <div class="stat"><span class="stat-num">3.5</span><span class="stat-label">Bathrooms</span></div>
+        <div class="stat"><span class="stat-num">2,400</span><span class="stat-label">Sq Ft</span></div>
+      </div>
+
+      <!-- About + Gallery, side-by-side -->
+      <div class="about-with-gallery">
+        <div class="about-text">
+          <h2>About</h2>
+          <p>A renovated 4-bedroom luxury penthouse with private parking — walk to everything. Spanning 2,400 sq ft, The Vault is designed for entertaining, with expansive living space and a 600 sq ft covered outdoor deck — perfect for celebrations, group stays, and unwinding in style after a day in downtown Bristol.</p>
+        </div>
+        <div class="property-gallery" data-carousel data-property="vault" aria-label="The Vault photos"></div>
+      </div>
+
+      <!-- Guest-review summary -->
+      <div class="reviews-summary">
+        <div class="reviews-score">
+          <span class="reviews-num">10</span><span class="reviews-denom">/10</span>
+        </div>
+        <div class="reviews-meta">
+          <div class="reviews-title">Loved by Guests</div>
+          <div class="reviews-count">Top 10% of guest reviews in this area · 16 verified reviews</div>
+        </div>
+        <div class="reviews-cats">
+          <div class="cat"><span class="cat-label">Cleanliness</span><span class="cat-num">10</span></div>
+          <div class="cat"><span class="cat-label">Check-in</span><span class="cat-num">10</span></div>
+          <div class="cat"><span class="cat-label">Communication</span><span class="cat-num">10</span></div>
+          <div class="cat"><span class="cat-label">Location</span><span class="cat-num">10</span></div>
+        </div>
+      </div>
+
+      <div class="property-body">
+        <div class="property-main">
+
+          <h2>The Space</h2>
+          <p>Sleeps up to 10 comfortably across four distinct bedrooms and three full baths (plus a convenient half bath), with a chef's kitchen, an 8-seat dining area, and a living room built for game days and late nights.</p>
+
+          <h3 class="amen-group">Bedrooms</h3>
+          <ul class="amenities">
+            <li>Master Suite 1 — Queen bed · 55" Smart TV · private full bathroom</li>
+            <li>Master Suite 2 — King bed · 55" Smart TV · private full bath with soaker tub</li>
+            <li>Guest Room — King bed · 42" Smart TV · Jack-and-Jill shared bath</li>
+            <li>Double Room — Two queen beds · 55" Smart TV · Jack-and-Jill shared bath</li>
+          </ul>
+
+          <h3 class="amen-group">Bathrooms</h3>
+          <ul class="amenities">
+            <li>Bathroom 1 — Shower only · toilet · hair dryer · soap &amp; towels</li>
+            <li>Bathroom 2 — Bathtub &amp; shower · toilet · hair dryer · soap &amp; towels</li>
+            <li>Bathroom 3 — Shower only · toilet · hair dryer · soap &amp; towels</li>
+            <li>Half Bath — Toilet · soap</li>
+          </ul>
+
+          <h3 class="amen-group">Chef's Kitchen &amp; Dining</h3>
+          <ul class="amenities">
+            <li>Huge stone waterfall island with seating for 8</li>
+            <li>Full-size fridge &amp; freezer with pre-chilled beer mugs</li>
+            <li>Beverage station with ice maker &amp; beverage fridge</li>
+            <li>Gas stove with hood</li>
+            <li>Gorgeous walnut cabinets</li>
+            <li>Dining area (seats 8) under a modern chandelier</li>
+          </ul>
+
+          <h3 class="amen-group">Living Room</h3>
+          <ul class="amenities">
+            <li>Two 65" Smart TVs</li>
+            <li>Large leather sectional with cozy blankets</li>
+            <li>Professional dartboard</li>
+            <li>Convenient half bath</li>
+            <li>Sing Karaoke machine — connect via Bluetooth</li>
+          </ul>
+
+          <h3 class="amen-group">Private Outdoor Hangout</h3>
+          <p>The 600 sq ft covered deck is a true highlight — comfortable couches, a 65" Roku TV, a gas griddle for outdoor cooking, a fire pit, and Adirondack chairs. Perfect for winding down after a day of exploring.</p>
+          <ul class="amenities">
+            <li>600 sq ft covered deck</li>
+            <li>65" Roku TV &amp; outdoor couches</li>
+            <li>Gas griddle for outdoor cooking</li>
+            <li>Fire pit &amp; Adirondack chairs</li>
+            <li>Outdoor furniture</li>
+          </ul>
+
+          <h3 class="amen-group">Unique Design</h3>
+          <p>We restored as much of the building's historical charm as possible — exposed historic brickwork and original tin ceiling tiles bring character to every corner.</p>
+
+          <h2>Things to Do</h2>
+          <ul class="amenities">
+            <li>Paramount Center for the Arts — 1 min walk</li>
+            <li>Birthplace of Country Music Museum — 3 min walk</li>
+            <li>Cumberland Square Park — 3 min walk</li>
+            <li>Tri-Cities (TRI) airport — 21 min drive</li>
+            <li>Bristol Motor Speedway &amp; Casino — a short drive</li>
+          </ul>
+
+          <h2>Amenities</h2>
+
+          <h3 class="amen-group">Popular</h3>
+          <ul class="amenities">
+            <li>Free Wi-Fi</li>
+            <li>Air conditioning</li>
+            <li>Full kitchen</li>
+            <li>Washer &amp; dryer</li>
+            <li>Outdoor space</li>
+            <li>Parking available</li>
+            <li>Barbecue grill</li>
+          </ul>
+
+          <h3 class="amen-group">Essentials</h3>
+          <ul class="amenities">
+            <li>Wireless internet</li>
+            <li>Linens &amp; towels provided</li>
+            <li>Air conditioning &amp; heating</li>
+            <li>Hair dryer, shampoo, basic soaps</li>
+            <li>Toilet paper &amp; paper towels</li>
+            <li>Iron &amp; ironing board</li>
+          </ul>
+
+          <h3 class="amen-group">Kitchen</h3>
+          <ul class="amenities">
+            <li>Refrigerator &amp; freezer</li>
+            <li>Beverage fridge &amp; ice maker</li>
+            <li>Gas stove &amp; oven</li>
+            <li>Microwave</li>
+            <li>Dishwasher</li>
+            <li>Toaster &amp; blender</li>
+            <li>Coffee maker</li>
+            <li>Kitchen island</li>
+            <li>Dishes &amp; utensils</li>
+            <li>Dining table</li>
+            <li>Outdoor grill</li>
+          </ul>
+
+          <h3 class="amen-group">Entertainment</h3>
+          <ul class="amenities">
+            <li>Multiple Smart TVs (55" &amp; 65")</li>
+            <li>Karaoke machine</li>
+            <li>Professional dartboard</li>
+            <li>Games &amp; toys</li>
+          </ul>
+
+          <h3 class="amen-group">Family-Friendly</h3>
+          <ul class="amenities">
+            <li>Toys &amp; games</li>
+            <li>Living / dining area</li>
+            <li>Full kitchen &amp; microwave</li>
+          </ul>
+
+          <h2>House Rules</h2>
+          <ul class="amenities">
+            <li>Children welcome (ages 0–17)</li>
+            <li>Events allowed — family gatherings, birthday parties, weddings (with prior approval)</li>
+            <li>No pets typically — special accommodations may be available upon request (additional fee and guidelines apply)</li>
+            <li>No smoking</li>
+            <li>Penthouse access is by stairs only</li>
+            <li>Government-issued photo ID required at check-in</li>
+            <li>Guests are responsible for any damage to the property</li>
+          </ul>
+
+          <h2>Hosting an Event?</h2>
+          <p>We do allow small events with prior approval. We just ask that you follow a few rules out of respect for tenants and guests on the first floor.</p>
+
+          <h2>Need More Space?</h2>
+          <p>We also offer an optional hotel unit downstairs — <a href="#mint">The Mint</a> — that sleeps 2 (king bed, full bath, 42" Smart TV). It's a completely separate space but can be reserved together with The Vault for larger groups. Must check availability.</p>
+          <p><em>Our prices include all fees. No hidden fees.</em></p>
+
+          <h2>What Guests Are Saying</h2>
+          <div class="review-grid">
+            <blockquote class="review">
+              <p>"The finishes and the decorations in this restored loft are beyond fabulous! It is very high-end. It's a great value for the space and number of beds. Our extended family of 10 fit perfectly for a long wedding weekend. The outdoor space is amazing and would be great for entertaining."</p>
+              <cite>— Amanda M. · Stayed 3 nights, Mar 2026</cite>
+            </blockquote>
+            <blockquote class="review">
+              <p>"One of the best, if not the best units we have ever stayed in. Just wonderful. Highly, highly recommend!"</p>
+              <cite>— Rich M. · Stayed 3 nights, Dec 2025</cite>
+            </blockquote>
+            <blockquote class="review">
+              <p>"Great space to host guests or plenty of room for a large family. Nice large balcony with plenty of seating too. Will be staying here again."</p>
+              <cite>— Jeremy J. · Stayed 3 nights, Mar 2026</cite>
+            </blockquote>
+            <blockquote class="review">
+              <p>"We absolutely loved this perfect getaway! It was beautiful, clean, and furnished beautifully. The kitchen was the best stocked kitchen in any place I've ever stayed. The beds were very comfortable."</p>
+              <cite>— Carolyn S. · Stayed 3 nights, Oct 2025</cite>
+            </blockquote>
+            <blockquote class="review">
+              <p>"Perfect location in downtown Bristol in an expansive property with plenty of space and amenities. Highly recommend!"</p>
+              <cite>— Kenneth L. · Stayed 2 nights, Nov 2025</cite>
+            </blockquote>
+            <blockquote class="review">
+              <p>"We absolutely loved this place. We are in Kingsport 2× a year and will stay here every time. It has everything you need and we loved the layout and decor. There are stairs to enter so make sure that won't be an issue for anyone in your party."</p>
+              <cite>— Kimmi W. · Stayed 2 nights, Nov 2025</cite>
+            </blockquote>
+            <blockquote class="review">
+              <p>"Beds were beyond comfortable for all of us! Lots of kitchen appliances that were top notch, plenty of cooking supplies. Perfect outdoor space to boot! What a wonderful place to celebrate my son's birthday."</p>
+              <cite>— Maria M. · Stayed 4 nights, Oct 2025</cite>
+            </blockquote>
+            <blockquote class="review">
+              <p>"Really nice, unique place in a great location. Great back porch, kitchen and open floor plan. Nice bedrooms and baths."</p>
+              <cite>— Hugh J. · Verified guest</cite>
+            </blockquote>
+          </div>
+        </div>
+
+        <aside class="property-book">
+          <div class="book-rate">
+            <span class="rate-num">$—</span>
+            <span class="rate-label">/ night</span>
+          </div>
+          <p class="rate-meta">All-inclusive pricing. No hidden fees.</p>
+          <a href="https://www.vrbo.com/4185183" target="_blank" rel="noopener" class="btn">Book on VRBO</a>
+          <a href="#contact" class="btn btn-alt">Inquire direct</a>
+          <ul class="book-list">
+            <li>Sleeps 10 · 4 beds · 3.5 baths · 2,400 sq ft</li>
+            <li>600 sq ft covered outdoor deck</li>
+            <li>Private parking included</li>
+            <li>1 min walk to the Paramount</li>
+            <li>10/10 · Loved by Guests (16 reviews)</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- THE TRUST — detail page -->
+    <section class="section property-detail" id="trust">
+      <a href="#home" class="back-link">&larr; Back to Quarters</a>
+      <h1>The Trust</h1>
+      <p class="subhead-line">Refined living for extended stays.</p>
+
+      <div class="property-stats">
+        <div class="stat"><span class="stat-num">$2,100</span><span class="stat-label">Per Month</span></div>
+        <div class="stat"><span class="stat-num">2</span><span class="stat-label">Bedrooms</span></div>
+        <div class="stat"><span class="stat-num">2</span><span class="stat-label">Bathrooms</span></div>
+        <div class="stat"><span class="stat-num">1,100</span><span class="stat-label">Sq Ft</span></div>
+      </div>
+
+      <!-- About + Gallery, side-by-side -->
+      <div class="about-with-gallery">
+        <div class="about-text">
+          <h2>About</h2>
+          <p>A thoughtfully designed 2-bedroom, 2-bath residence ideal for executive stays, relocations, and traveling professionals. With 1,100 sq ft of comfortable, well-appointed space, it offers a seamless blend of privacy, functionality, and downtown access — perfect for longer stays that feel like home.</p>
+        </div>
+        <div class="property-gallery" data-carousel data-property="trust" aria-label="The Trust photos"></div>
+      </div>
+
+      <div class="property-body">
+        <div class="property-main">
+
+          <h2>What's Special</h2>
+          <ul class="amenities">
+            <li>Historic charm</li>
+            <li>Elevated modern luxury</li>
+            <li>Spa-inspired finishes</li>
+            <li>Open-concept layout</li>
+            <li>Beautifully restored space</li>
+            <li>Exposed original brick</li>
+            <li>In-unit washer and dryer</li>
+          </ul>
+
+          <h2>The Space</h2>
+
+          <h3 class="amen-group">Bedrooms &amp; Bathrooms</h3>
+          <ul class="amenities">
+            <li>Primary suite with a luxury en suite bath</li>
+            <li>Second bedroom ideal for guests, work-from-home, or flex space</li>
+            <li>Spa-inspired finishes and elevated design throughout</li>
+            <li>2 full bathrooms with designer tilework</li>
+          </ul>
+
+          <h3 class="amen-group">Kitchen &amp; Living</h3>
+          <ul class="amenities">
+            <li>Leathered granite countertops with bar seating</li>
+            <li>Modern appliances — dishwasher, oven, refrigerator &amp; freezer</li>
+            <li>In-unit washer &amp; dryer</li>
+            <li>Clean lines, upscale finishes, and abundant character</li>
+            <li>Sleek concrete floors</li>
+            <li>Exposed original brick</li>
+          </ul>
+
+          <h2>The Location</h2>
+          <p>12 Bank Street #12, Bristol, TN 37620 — tucked just off the main strip, walkable to restaurants, shopping, and entertainment. All the energy of downtown at your doorstep, with a quieter, private retreat to come home to.</p>
+
+          <h2>Lease Terms</h2>
+          <ul class="amenities">
+            <li>Fully furnished luxury residence</li>
+            <li>Multi-month lease options available</li>
+            <li>Flexible terms based on availability</li>
+            <li>Two (2) reserved parking spaces in private lot</li>
+            <li>Security deposit required</li>
+            <li>Application &amp; background screening required</li>
+          </ul>
+
+          <h2>Utilities &amp; Services</h2>
+          <ul class="amenities">
+            <li>Furnished as shown</li>
+            <li>Utilities &amp; internet terms provided upon inquiry</li>
+            <li>Professional cleaning fee may apply</li>
+            <li>All-inclusive living options available — ask about pricing that includes utilities and/or furnishings</li>
+            <li>Flexible, turnkey living designed for convenience and comfort</li>
+          </ul>
+
+          <h2>Amenities</h2>
+          <ul class="amenities">
+            <li>Central air</li>
+            <li>Heat pump</li>
+            <li>In-unit laundry (washer &amp; dryer)</li>
+            <li>Dishwasher</li>
+            <li>Full kitchen appliances</li>
+            <li>Off-street reserved parking (×2)</li>
+            <li>Dogs welcome</li>
+            <li>Furnished</li>
+          </ul>
+
+          <h2>Occupancy Guidelines</h2>
+          <ul class="amenities">
+            <li>No smoking inside the property (strictly enforced)</li>
+            <li>No unauthorized subleasing</li>
+            <li>Occupancy limits apply</li>
+            <li>Property must be maintained in clean, respectful condition</li>
+            <li>Violation of house rules may result in termination of lease agreement</li>
+          </ul>
+
+          <h2>Ideal For</h2>
+          <p>Executive stays, relocations, traveling professionals, and extended downtown stays.</p>
+
+          <p><em>Availability: Friday, May 1, 2026.</em></p>
+        </div>
+
+        <aside class="property-book">
+          <div class="book-rate">
+            <span class="rate-num">$2,100</span>
+            <span class="rate-label">/ month</span>
+          </div>
+          <p class="rate-meta">Fees may apply. Utilities &amp; furnishings terms provided upon inquiry.</p>
+          <a href="#contact" class="btn">Inquire to Lease</a>
+          <a href="#contact" class="btn btn-alt">Request a Tour</a>
+          <ul class="book-list">
+            <li>2 beds · 2 baths · 1,100 sq ft</li>
+            <li>Fully furnished &amp; turnkey</li>
+            <li>Two reserved parking spaces</li>
+            <li>Dogs welcome</li>
+            <li>Available May 1, 2026</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- THE TELLER — detail page -->
+    <section class="section property-detail" id="teller">
+      <a href="#home" class="back-link">&larr; Back to Quarters</a>
+      <h1>The Teller</h1>
+      <p class="subhead-line">Refined downtown living, made easy.</p>
+
+      <div class="property-stats">
+        <div class="stat"><span class="stat-num">$2,650</span><span class="stat-label">Per Month</span></div>
+        <div class="stat"><span class="stat-num">2</span><span class="stat-label">Bedrooms</span></div>
+        <div class="stat"><span class="stat-num">2</span><span class="stat-label">Bathrooms</span></div>
+        <div class="stat"><span class="stat-num">1,100</span><span class="stat-label">Sq Ft</span></div>
+      </div>
+
+      <!-- About + Gallery, side-by-side -->
+      <div class="about-with-gallery">
+        <div class="about-text">
+          <h2>About</h2>
+          <p>A refined 2-bedroom, 2-bath residence in the heart of Bristol, designed for easy, all-inclusive living. With 1,100 sq ft of bright, loft-style space and a single monthly payment covering rent, utilities, and internet, The Teller delivers comfort, simplicity, and walkable access to everything downtown.</p>
+          <p>Welcome to The Teller — a stylish apartment in the heart of downtown Bristol. Historic charm, modern comfort, all-inclusive living. Bank Street Quarters blends historic character with modern amenities, giving you an unmatched downtown experience.</p>
+          <p>Perfect for those who want hassle-free, all-inclusive living in a prime location — one flat monthly payment covers rent, utilities, and basic internet.</p>
+        </div>
+        <div class="property-gallery" data-carousel data-property="teller" aria-label="The Teller photos"></div>
+      </div>
+
+      <div class="property-body">
+        <div class="property-main">
+
+          <h2>Apartment Highlights</h2>
+          <ul class="amenities">
+            <li>Bright &amp; airy living room with stunning picture window</li>
+            <li>Modern kitchen with black stainless-steel appliances</li>
+            <li>In-unit washer &amp; dryer</li>
+            <li>Private HVAC — set the perfect temperature year-round</li>
+            <li>Furnished &amp; all-inclusive living</li>
+            <li>Loft layout with high &amp; vaulted ceilings</li>
+          </ul>
+
+          <h2>The Space</h2>
+
+          <h3 class="amen-group">Bedrooms &amp; Bathrooms</h3>
+          <ul class="amenities">
+            <li>2 bedrooms</li>
+            <li>2 full bathrooms with tub / shower</li>
+            <li>Framed mirrors</li>
+          </ul>
+
+          <h3 class="amen-group">Kitchen</h3>
+          <ul class="amenities">
+            <li>Island kitchen with granite countertops</li>
+            <li>Eat-in kitchen with pantry</li>
+            <li>Black stainless-steel appliances</li>
+            <li>Oven, range, microwave</li>
+            <li>Refrigerator &amp; freezer</li>
+            <li>Dishwasher, disposal, ice maker</li>
+          </ul>
+
+          <h3 class="amen-group">Living &amp; Interior</h3>
+          <ul class="amenities">
+            <li>Loft layout</li>
+            <li>High &amp; vaulted ceilings</li>
+            <li>Ceiling fans</li>
+            <li>Cable ready</li>
+            <li>High-speed internet access &amp; Wi-Fi</li>
+            <li>Sprinkler system</li>
+            <li>Smoke-free property</li>
+          </ul>
+
+          <h2>The Location</h2>
+          <p>14 Bank Street, Unit 18 — Bristol, TN 37620. Located in Sullivan County (Bristol School District). Steps from State Street, local dining, live music, boutique shopping, and the vibrant culture Bristol is known for.</p>
+
+          <h2>All-Inclusive Living</h2>
+          <p>One flat monthly payment covers rent, utilities, and basic internet (upgrades available per lease).</p>
+          <ul class="amenities">
+            <li>Gas</li>
+            <li>Water &amp; sewer</li>
+            <li>Electricity</li>
+            <li>Heat &amp; air conditioning</li>
+            <li>Trash removal</li>
+            <li>Basic internet</li>
+          </ul>
+
+          <h2>Amenities</h2>
+
+          <h3 class="amen-group">Popular</h3>
+          <ul class="amenities">
+            <li>In-unit washer &amp; dryer</li>
+            <li>Air conditioning &amp; heating</li>
+            <li>Dishwasher</li>
+            <li>Granite countertops</li>
+            <li>Microwave</li>
+            <li>Island kitchen</li>
+            <li>High-speed internet</li>
+            <li>Furnished</li>
+          </ul>
+
+          <h3 class="amen-group">Pets &amp; Parking</h3>
+          <ul class="amenities">
+            <li>Dogs allowed (fees not specified)</li>
+            <li>Cats allowed (fees not specified)</li>
+            <li>Parking — contact for details</li>
+          </ul>
+
+          <h2>Property Information</h2>
+          <ul class="amenities">
+            <li>4 units in the Bank Street Quarters community</li>
+            <li>Furnished units available</li>
+            <li>Smoke-free building</li>
+          </ul>
+
+          <p><em>Check back soon for upcoming availability.</em></p>
+        </div>
+
+        <aside class="property-book">
+          <div class="book-rate">
+            <span class="rate-num">$2,650</span>
+            <span class="rate-label">/ month</span>
+          </div>
+          <p class="rate-meta">All-inclusive — rent, utilities &amp; basic internet.</p>
+          <a href="#contact" class="btn">Inquire to Lease</a>
+          <a href="#contact" class="btn btn-alt">Request a Tour</a>
+          <ul class="book-list">
+            <li>2 beds · 2 baths · 1,100 sq ft</li>
+            <li>Loft layout · vaulted ceilings</li>
+            <li>Fully furnished &amp; turnkey</li>
+            <li>Dogs &amp; cats welcome</li>
+            <li>All utilities included</li>
+          </ul>
+        </aside>
       </div>
     </section>
 
     <!-- CONTACT -->
     <section class="section" id="contact">
-      <p class="eyebrow">Book Your Stay</p>
       <h1>Contact</h1>
       <div class="divider"></div>
-      <p class="lead">Questions, availability, or a long-term inquiry — send us a note and we'll be in touch.</p>
 
-      <form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks — we\\'ll be in touch shortly.');">
+      <!-- Phone-first CTA -->
+      <a class="phone-cta" href="tel:+14235551234">
+        <span class="phone-label">Call or text</span>
+        <span class="phone-number">(423) 555&nbsp;·&nbsp;1234</span>
+      </a>
+
+      <h2 style="margin-top: 3rem;">Prefer to write?</h2>
+
+      <!--
+        FORMSPREE SETUP:
+        1. Sign up at https://formspree.io (free tier handles ~50 submissions/mo)
+        2. Create a new form, copy the form ID (looks like "xrgjwoql")
+        3. Replace YOUR_FORM_ID below with that ID
+      -->
+      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="hidden" name="_subject" value="New inquiry — Bank Street Quarters" />
+
         <div>
-          <label for="name">Name</label>
-          <input id="name" type="text" required />
+          <label for="name">Name <span class="required-mark">*</span></label>
+          <input id="name" name="name" type="text" required autocomplete="name" />
         </div>
         <div>
-          <label for="email">Email</label>
-          <input id="email" type="email" required />
+          <label for="phone">Phone <span class="required-mark">*</span></label>
+          <input id="phone" name="phone" type="tel" required autocomplete="tel" placeholder="(423) 555-1234" />
+        </div>
+        <div>
+          <label for="email">Email <span class="optional-mark">(optional)</span></label>
+          <input id="email" name="_replyto" type="email" autocomplete="email" />
+        </div>
+        <div>
+          <label for="property">Which quarters?</label>
+          <select id="property" name="property">
+            <option value="">No preference yet</option>
+            <option value="The Mint">The Mint</option>
+            <option value="The Vault">The Vault</option>
+            <option value="The Trust">The Trust</option>
+            <option value="The Teller">The Teller</option>
+          </select>
         </div>
         <div>
           <label for="dates">Dates of interest</label>
-          <input id="dates" type="text" placeholder="e.g. Oct 12–15, or flexible" />
+          <input id="dates" name="dates" type="text" placeholder="e.g. Oct 12–15, or flexible" />
         </div>
         <div>
           <label for="message">Message</label>
-          <textarea id="message" required></textarea>
+          <textarea id="message" name="message" placeholder="Anything we should know? Group size, special occasion, questions..."></textarea>
         </div>
-        <button type="submit" class="btn">Send Inquiry</button>
+
+        <!-- Honeypot anti-spam (hidden) -->
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <button type="submit" class="btn">Request a Call Back</button>
       </form>
 
-      <h2 style="margin-top: 3.5rem;">Our Process</h2>
+      <!-- Meet your host -->
+      <h2 style="margin-top: 3.5rem;">Meet Your Host</h2>
       <div class="divider"></div>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">STEP 01</div>
-          <h3>Reach Out</h3>
-          <p>Tell us your dates and which quarters you're drawn to. We'll confirm availability within a day.</p>
+      <div class="host-block">
+        <div class="host-card">
+          <div class="host-card-id">
+            <div class="host-avatar" aria-hidden="true">B</div>
+            <div class="host-card-name">Bethany</div>
+            <div class="host-card-badge">Superhost</div>
+          </div>
+          <div class="host-card-stats">
+            <div class="host-stat"><div class="host-stat-num">76</div><div class="host-stat-label">Reviews</div></div>
+            <div class="host-stat"><div class="host-stat-num">4.93 ★</div><div class="host-stat-label">Rating</div></div>
+            <div class="host-stat"><div class="host-stat-num">9</div><div class="host-stat-label">Years hosting</div></div>
+          </div>
         </div>
-        <div class="step">
-          <div class="step-num">STEP 02</div>
-          <h3>Hold &amp; Confirm</h3>
-          <p>We send a simple hold with rates, house notes, and a clear booking link.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">STEP 03</div>
-          <h3>Arrival</h3>
-          <p>Self check-in with a personal touch. Everything you need waiting for you — nothing you don't.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">STEP 04</div>
-          <h3>Stay With Us</h3>
-          <p>We're here if you need anything. Otherwise: enjoy Bristol.</p>
-        </div>
+        <p>Hello! I am a mother of 4 small children, work full time, and have a lovely husband. I work hard and play hard. I appreciate — really appreciate — quality things: faith, family, and friends that enhance my life and brighten me up.</p>
+        <p>I love, really love, this loft. It's a great memory-making place, and I'm excited to share it with others. It makes my sweet downtown Bristol feel a bit "cooler." Thank you for your consideration.</p>
+      </div>
+
+      <!-- Quick FAQs -->
+      <h2 style="margin-top: 3.5rem;">Quick Questions</h2>
+      <div class="divider"></div>
+      <details class="faq">
+        <summary>What time is check-in and check-out?</summary>
+        <p>Check-in is at 4:00 PM and check-out is 11:00 AM. Need flexibility? Just ask — we accommodate when we can.</p>
+      </details>
+      <details class="faq">
+        <summary>Is parking included?</summary>
+        <p>Yes — every property includes reserved parking in our private lot just behind the building.</p>
+      </details>
+      <details class="faq">
+        <summary>Can I bring my dog?</summary>
+        <p>The Trust and The Teller welcome dogs (and The Teller welcomes cats too). The Mint and The Vault are pet-free.</p>
+      </details>
+      <details class="faq">
+        <summary>Do you allow events?</summary>
+        <p>Yes — The Vault is designed for entertaining and small events (weddings, birthdays, gatherings) are allowed with prior approval.</p>
+      </details>
+      <details class="faq">
+        <summary>What's included in the monthly rate for The Trust &amp; The Teller?</summary>
+        <p>The Teller is fully all-inclusive — rent, utilities, and internet in one flat payment. The Trust includes furnishings and reserved parking; utilities can be added in. Ask us for the all-in number.</p>
+      </details>
+
+      <!-- Quick-pick "What are you looking for?" -->
+      <h2 class="contact-h2" style="margin-top: 3.5rem;">How can we help?</h2>
+      <div class="path-grid">
+        <a class="path-card" href="#home">
+          <span class="path-label">Stay With Us</span>
+          <span class="path-desc">Browse The Mint &amp; The Vault for short stays.</span>
+        </a>
+        <a class="path-card" href="#trust">
+          <span class="path-label">Lease Monthly</span>
+          <span class="path-desc">The Trust &amp; The Teller for longer-term living.</span>
+        </a>
+        <a class="path-card" href="#vault">
+          <span class="path-label">Host an Event</span>
+          <span class="path-desc">Weddings, parties &amp; gatherings at The Vault.</span>
+        </a>
+        <a class="path-card" href="#discover">
+          <span class="path-label">Discover Bristol</span>
+          <span class="path-desc">Where to eat, drink, and explore in town.</span>
+        </a>
       </div>
     </section>
 
-    <!-- PARTNERS -->
-    <section class="section" id="partners">
-      <p class="eyebrow">In Good Company</p>
-      <h1>Partners</h1>
+    <!-- DISCOVER BRISTOL -->
+    <section class="section" id="discover">
+      <h1>Discover Bristol</h1>
+      <p class="subhead-line">A local guide to eating, drinking, and exploring.</p>
       <div class="divider"></div>
-      <p class="lead">The makers, hosts, and neighbors who help make a stay at Bank Street Quarters feel effortless.</p>
+      <p class="lead">From rooftop bars and the Country Music Museum to swimming holes and underground caves — here's everything we send our guests to. Hand-picked, regularly updated.</p>
 
-      <div class="location-grid">
-        <div class="loc-card">
-          <h3>Dining &amp; Drink</h3>
-          <p>A short list of our favorite restaurants, cafés, and bars — steps from the door.</p>
-        </div>
-        <div class="loc-card">
-          <h3>Music &amp; Venues</h3>
-          <p>Live rooms, listening rooms, and the Birthplace of Country Music Museum.</p>
-        </div>
-        <div class="loc-card">
-          <h3>Retail &amp; Boutique</h3>
-          <p>Local shops, makers, and galleries that define the character of State Street.</p>
-        </div>
-        <div class="loc-card">
-          <h3>Concierge Services</h3>
-          <p>Private tours, transport, and curated itineraries for a longer visit.</p>
+      <h2 class="discover-h2"><span class="h2-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg></span>Things to Do — In Town</h2>
+
+      <div class="discover-spotlight">
+        <div class="photo-slot has-image" style="background-image: url('./website/discover/country-music-museum.jpg')"></div>
+        <div class="spot-body">
+          <div class="spot-tag">Top Pick</div>
+          <h3>Birthplace of Country Music Museum</h3>
+          <p class="venue-meta">101 Country Music Way, Bristol VA</p>
+          <p>Interactive exhibits on the 1927 Bristol Sessions — the recordings that launched country music. A live radio station broadcasts from inside. Closed Mondays.</p>
         </div>
       </div>
 
-      <h2 style="margin-top: 3.5rem;">Become a Partner</h2>
-      <div class="divider"></div>
-      <p>We work with a small, thoughtful group of local businesses. If you'd like to be part of the guest experience at Bank Street Quarters, we'd love to hear from you.</p>
-      <a href="#contact" class="btn" style="margin-top: 1rem;">Get in Touch</a>
+      <div class="discover-grid">
+        <article class="discover-card">
+          <h3>Paramount Bristol</h3>
+          <p class="venue-meta">518 State St, Bristol TN</p>
+          <p>Restored 1930s theater. Concerts, comedy, classic films.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Bristol Motor Speedway</h3>
+          <p class="venue-meta">Bristol TN</p>
+          <p>Iconic short-track NASCAR speedway. Weekday tours. Speedway in Lights at Christmas is a big draw.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Hard Rock Hotel &amp; Casino Bristol</h3>
+          <p class="venue-meta">500 Gate City Hwy, Bristol VA</p>
+          <p>The region's newest landmark. 1,300+ slots, full table games, sportsbook, and a multi-restaurant complex. Open 24/7.</p>
+        </article>
+      </div>
+
+      <h2 class="discover-h2"><span class="h2-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 16 c2 -1 3 1 5 0 c2 -1 3 1 5 0 c2 -1 3 1 5 0 c2 -1 3 1 5 0 M2 20 c2 -1 3 1 5 0 c2 -1 3 1 5 0 c2 -1 3 1 5 0 c2 -1 3 1 5 0 M6 12 L18 12 L17 4 L7 4 Z"/></svg></span>Lakes &amp; Boating</h2>
+
+      <div class="discover-spotlight">
+        <div class="photo-slot has-image" style="background-image: url('./website/discover/south-holston-lake.jpg')"></div>
+        <div class="spot-body">
+          <div class="spot-tag">Top Pick</div>
+          <h3>South Holston Lake</h3>
+          <p class="venue-meta">~20 min south</p>
+          <p>The local go-to lake. Crystal-clear Cherokee National Forest reservoir. Boat &amp; jet-ski rentals, fishing, swimming, and lakeside dining. The easiest day trip from your door.</p>
+        </div>
+      </div>
+
+      <div class="discover-grid">
+        <article class="discover-card">
+          <h3>Watauga Lake</h3>
+          <p class="venue-meta">~45 min east</p>
+          <p>Sapphire mountain lake — quieter and more scenic than South Holston. Ideal for kayaking, pontoon days, and lakeside picnics.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Boone Lake</h3>
+          <p class="venue-meta">~25 min south</p>
+          <p>The closer-in option. Marinas, family-friendly coves, and reliable bass fishing.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Cherokee National Forest</h3>
+          <p class="venue-meta">~30 min</p>
+          <p>Half a million acres of mountains, rivers, and lake access. Tube floats, hiking, fly-fishing the Watauga and South Holston tailwaters.</p>
+        </article>
+      </div>
+
+      <h2 class="discover-h2"><span class="h2-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 20 L9 8 L13 15 L17 10 L21 20 Z M9 8 L11 4 L13 6"/></svg></span>Parks, Trails &amp; Outdoors</h2>
+
+      <div class="discover-spotlight">
+        <div class="photo-slot has-image" style="background-image: url('./website/discover/mendota-trail.jpg')"></div>
+        <div class="spot-body">
+          <div class="spot-tag">Top Pick</div>
+          <h3>Mendota Trail</h3>
+          <p class="venue-meta">3460 Island Rd, Bristol VA</p>
+          <p>Rails-to-trails path running 12.5 miles to Mendota. Easy grade with a dramatic swinging bridge mid-trail. Walk a section or bike the full out-and-back.</p>
+        </div>
+      </div>
+
+      <div class="discover-grid">
+        <article class="discover-card">
+          <h3>Steele Creek Park</h3>
+          <p class="venue-meta">4 Little Ln, Bristol TN</p>
+          <p>Huge city park — lake, hiking, disc golf, splash pad, kid train ride. $2 to drive in.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Steele Creek Nature Center</h3>
+          <p class="venue-meta">80 Lakeshore Dr, Bristol TN</p>
+          <p>Inside Steele Creek. Interactive wildlife exhibits. Ask to meet Big Snappy the snapping turtle.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Rooster Front at Steele Creek</h3>
+          <p class="venue-meta">1160 Vance Dr, Bristol TN</p>
+          <p>Other Steele Creek entrance — over a dozen trails, falls, basketball court, skate area.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Holston River Weir Dam</h3>
+          <p class="venue-meta">376 Holston View Dam Rd, Bristol TN</p>
+          <p>Free riverside trails. 1.5 miles paved / gravel. Eagles, picnic spots. Easy walk.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Observation Knob Park</h3>
+          <p class="venue-meta">337 Knob Park Rd, Bristol TN</p>
+          <p>Campground + day-use park on South Holston Lake. Lake views, trails, picnicking.</p>
+        </article>
+      </div>
+
+      <h2 class="discover-h2"><span class="h2-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 18 H21 M5 18 V13 a2 2 0 0 1 2 -2 h10 a2 2 0 0 1 2 2 V18 M7 11 L8 7 H16 L17 11"/><circle cx="8" cy="18" r="1.5" fill="currentColor"/><circle cx="16" cy="18" r="1.5" fill="currentColor"/></svg></span>Day Trips</h2>
+
+      <div class="discover-spotlight">
+        <div class="photo-slot has-image" style="background-image: url('./website/discover/natural-tunnel.jpg')"></div>
+        <div class="spot-body">
+          <div class="spot-tag">Top Pick</div>
+          <h3>Natural Tunnel State Park</h3>
+          <p class="venue-meta">Duffield VA · ~45 min west</p>
+          <p>Massive natural railway tunnel cut through a mountain — a true bucket-list landmark. Chairlift access down to the floor, hiking trails, and camping. Worth the drive.</p>
+        </div>
+      </div>
+
+      <div class="discover-grid">
+        <article class="discover-card">
+          <h3>Abingdon, VA</h3>
+          <p class="venue-meta">~25 min northeast</p>
+          <p><strong>Barter Theatre</strong> · 127 W Main St — longest-running pro theater in the US (since 1933). Year-round shows.<br /><strong>Abingdon Muster Grounds</strong> — Revolutionary War historical site. Walkable grounds, small museum.<br /><strong>Sweetbay Brewing</strong> — best beer stop in Abingdon.<br />Pair with the Virginia Creeper Trail for a full day.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Blue Hole Falls</h3>
+          <p class="venue-meta">Elizabethton TN · ~35 min</p>
+          <p>Series of waterfalls + swimming holes. Short but steep hike down. Local summer hangout.</p>
+        </article>
+      </div>
+
+
+
+      <blockquote class="pull-quote">
+        <p>"Highly recommend Bistro on 6th for a bite. Enjoyed our stay!"</p>
+        <cite>— Kelsey, Verified guest</cite>
+      </blockquote>
+
+      <h2 class="discover-h2"><span class="h2-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M7 2v9a3 3 0 0 0 3 3v8M10 2v6M4 2v6M17 2c-1.5 0-3 1-3 4v6h3v10"/></svg></span>Restaurants — Downtown &amp; Nearby</h2>
+
+      <div class="discover-grid">
+        <article class="discover-card">
+          <h3>Bistro on 6th</h3>
+          <p class="venue-meta">620 State St, Bristol TN</p>
+          <p>Upscale-casual downtown. Champagne pork and fried green tomatoes are standouts. Closed Sundays.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Machiavelli's Italian</h3>
+          <p class="venue-meta">8 5th St, Bristol TN</p>
+          <p>Downtown date-night Italian. Pizza, pasta, good wine. Closed Mon &amp; Sun.</p>
+        </article>
+        <article class="discover-card">
+          <h3>The Corner</h3>
+          <p class="venue-meta">501 State St, Bristol VA</p>
+          <p>Big-menu pub: wings, hush puppies, melts. Open late on weekends.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Axe and Ale House</h3>
+          <p class="venue-meta">155 Moore St, Bristol VA</p>
+          <p>Hidden gem — axe throwing, arcade, great beer. Try the Cuban and smoked nachos. Closed Mon/Tue.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Southern Craft BBQ</h3>
+          <p class="venue-meta">Bristol VA</p>
+          <p>BBQ joint open every day, early to late. Reliable go-to.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Hickory at Nicewonder Farm &amp; Vineyards</h3>
+          <p class="venue-meta">Bristol VA · ~20 min out</p>
+          <p>Fine dining on a working vineyard. Special occasions. Breakfast is also a sleeper.</p>
+        </article>
+      </div>
+
+      <blockquote class="pull-quote">
+        <p>"The location is perfect for walking to explore the cute shops and restaurants on State Street as well as the live music on the weekends."</p>
+        <cite>— Shana R., Verified guest</cite>
+      </blockquote>
+
+      <h2 class="discover-h2"><span class="h2-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 8h14v8a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8z M18 10h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2 M8 4v2 M12 3v3 M16 4v2"/></svg></span>Coffee &amp; Breakfast</h2>
+      <div class="discover-grid">
+        <article class="discover-card">
+          <h3>Whimsicals</h3>
+          <p class="venue-meta">636 Shelby St, Bristol TN</p>
+          <p>Best coffee downtown. Mini waffles, croissant sandwiches, gluten-free options. Limited hours — weekdays only.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Blackbird Bakery</h3>
+          <p class="venue-meta">188 Piedmont Ave, Bristol VA</p>
+          <p>Massive bakery in a restored warehouse. Donuts, crepes, raspberry cheesecake. 7am–10pm, closed Sundays.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Trailblazer Coffee</h3>
+          <p class="venue-meta">2016 W State St, Bristol TN</p>
+          <p>Drive-thru only. Open 7 days, 6am most days. Brown sugar bourbon latte is the signature.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Aroma Coffee House</h3>
+          <p class="venue-meta">4863 Lee Hwy, Bristol VA · Exit 7</p>
+          <p>4.9-star cozy spot. Gelato, pastries, open every day.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Cast Iron Cafe</h3>
+          <p class="venue-meta">1386 Old Airport Rd, Bristol VA</p>
+          <p>Drive-thru home-cooked breakfast / lunch. Famous chicken salad croissants. Closed Sundays. Opens 6am.</p>
+        </article>
+      </div>
+
+      <h2 class="discover-h2"><span class="h2-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12 L17 13 a5 5 0 0 1 -10 0 Z M12 18v3 M9 21h6"/></svg></span>Bars, Breweries &amp; Distilleries</h2>
+      <div class="discover-grid">
+        <article class="discover-card">
+          <h3>LUMAC Rooftop Bar</h3>
+          <p class="venue-meta">115 Country Music Way, Bristol VA · Bristol Hotel</p>
+          <p>Rooftop with near-360 views. Live music, solid food (pickles, salmon tacos). Open daily.</p>
+        </article>
+        <article class="discover-card">
+          <h3>O'Mainnin's Pub</h3>
+          <p class="venue-meta">712 State St, Bristol TN</p>
+          <p>Irish-style pub. Karaoke, live bands, dance floor, pool tables. Open till 2am (3am Fri / Sat).</p>
+        </article>
+        <article class="discover-card">
+          <h3>Sapphire Social</h3>
+          <p class="venue-meta">801 State St, Bristol VA</p>
+          <p>3-story lounge + nightclub for actual late-night dancing. Thurs–Sat, 9pm–2:30am.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Michael Waltrip Brewing Co.</h3>
+          <p class="venue-meta">700 State St, Bristol TN</p>
+          <p>NASCAR-themed brewery on State Street. Bristol Sunshine Tangerine Ale.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Tennessee Hills Distillery</h3>
+          <p class="venue-meta">90 Tennessee Hills Way, Bristol TN</p>
+          <p>Distillery + restaurant with hilltop views. $6 tastings, BBQ menu, live music. Strong all-around pick.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Sweetbay Brewing</h3>
+          <p class="venue-meta">Abingdon VA · ~25 min</p>
+          <p>Popular with Virginia Creeper Trail cyclists. Lagers and pilsners stand out.</p>
+        </article>
+      </div>
+
+      <h2 class="discover-h2"><span class="h2-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 11h14 L17 21 H7 Z M9 11 a3 3 0 0 1 6 0 M7 8 a2 2 0 0 1 4 0 a2 2 0 0 1 4 0 a2 2 0 0 1 4 0"/></svg></span>Dessert &amp; Sweets</h2>
+      <div class="discover-grid">
+        <article class="discover-card">
+          <h3>The Southern Churn</h3>
+          <p class="venue-meta">627 State St, Bristol VA</p>
+          <p>Old-fashioned candy + ice cream shop. Homemade fudge daily, rotating seasonal flavors.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Taste Buds</h3>
+          <p class="venue-meta">750 Volunteer Pkwy, Bristol TN</p>
+          <p>Rolled ice cream, banana splits, burgers. Retro family vibe, open till 9pm.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Crave Cookies</h3>
+          <p class="venue-meta">426 Pinnacle Pkwy, Bristol TN</p>
+          <p>Gourmet cookies + loaded sodas at the Pinnacle. Closed Sundays.</p>
+        </article>
+      </div>      <h2 class="discover-h2"><span class="h2-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 20 V14 a9 9 0 0 1 18 0 V20 M8 20 V16 a4 4 0 0 1 8 0 V20"/></svg></span>Caves</h2>
+      <div class="discover-grid">
+        <article class="discover-card">
+          <h3>Bristol Caverns</h3>
+          <p class="venue-meta">1157 Bristol Caverns Hwy, Bristol TN</p>
+          <p>Classic guided cave tour ~15 min away. Cool year-round. Great rainy-day option.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Appalachian Caverns</h3>
+          <p class="venue-meta">Blountville TN</p>
+          <p>Bigger and more rustic than Bristol Caverns. Underground creek, entertaining guides.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Worley's Cave</h3>
+          <p class="venue-meta">Bluff City TN</p>
+          <p>Free, self-guided wild cave. Bring headlamps, waterproof boots, clothes you can ruin. Adventurous.</p>
+        </article>
+      </div>
+
+      <h2 class="discover-h2"><span class="h2-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="6" r="2"/><path d="M5 14 c0 -2 1 -4 3 -4 s3 2 3 4 v6"/><circle cx="16" cy="6" r="2"/><path d="M13 14 c0 -2 1 -4 3 -4 s3 2 3 4 v6"/></svg></span>Family &amp; Kids</h2>
+      <div class="discover-grid">
+        <article class="discover-card">
+          <h3>We Rock the Spectrum</h3>
+          <p class="venue-meta">1241 Volunteer Pkwy, Bristol TN</p>
+          <p>Indoor sensory playground. Great for younger kids, accessible for all abilities. Coffee bar for parents.</p>
+        </article>
+        <article class="discover-card">
+          <h3>Backyard Terrors Dinosaur Park</h3>
+          <p class="venue-meta">1065 Walnut Grove Rd, Bluff City TN · ~25 min</p>
+          <p>Donation-based ($5 suggested). Life-size handmade dinosaurs along a short hike trail. 4.9 stars across nearly 2,000 reviews.</p>
+        </article>
+      </div>
+
+      <h2 class="discover-h2"><span class="h2-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 L14 8 L20 8 L15 12 L17 19 L12 15 L7 19 L9 12 L4 8 L10 8 Z"/></svg></span>Quick Picks by Mood</h2>
+      <div class="mood-table">
+        <div class="mood-row"><div class="mood-want">First-time visitor must-do</div><div class="mood-go">Birthplace of Country Music Museum</div></div>
+        <div class="mood-row"><div class="mood-want">Date night dinner</div><div class="mood-go">Bistro on 6th or Hickory at Nicewonder</div></div>
+        <div class="mood-row"><div class="mood-want">Casual fun night</div><div class="mood-go">Axe and Ale House</div></div>
+        <div class="mood-row"><div class="mood-want">Rooftop drinks</div><div class="mood-go">LUMAC</div></div>
+        <div class="mood-row"><div class="mood-want">Late-night dancing</div><div class="mood-go">Sapphire Social</div></div>
+        <div class="mood-row"><div class="mood-want">Morning coffee</div><div class="mood-go">Whimsicals or Blackbird Bakery</div></div>
+        <div class="mood-row"><div class="mood-want">Family outing</div><div class="mood-go">Steele Creek Park</div></div>
+        <div class="mood-row"><div class="mood-want">Kid-friendly half day</div><div class="mood-go">Backyard Terrors Dinosaur Park</div></div>
+        <div class="mood-row"><div class="mood-want">Rainy day</div><div class="mood-go">Bristol Caverns or the Country Music Museum</div></div>
+        <div class="mood-row"><div class="mood-want">Big outdoor day</div><div class="mood-go">Natural Tunnel State Park</div></div>
+        <div class="mood-row"><div class="mood-want">Cultural day trip</div><div class="mood-go">Abingdon (Barter Theatre + lunch)</div></div>
+        <div class="mood-row"><div class="mood-want">Lake day</div><div class="mood-go">South Holston Lake</div></div>
+        <div class="mood-row"><div class="mood-want">Late-night entertainment</div><div class="mood-go">Hard Rock Hotel &amp; Casino Bristol</div></div>
+      </div>
     </section>
 
   </main>
+
+  <!-- Lightbox overlay -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog">
+    <button class="lb-prev" id="lbPrev" aria-label="Previous photo">&#8249;</button>
+    <img id="lbImage" alt="" />
+    <button class="lb-next" id="lbNext" aria-label="Next photo">&#8250;</button>
+    <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+    <div class="lb-counter" id="lbCounter"></div>
+  </div>
 
   <footer>
     <div class="brand">Bank Street Quarters</div>
@@ -827,7 +3423,11 @@
   </footer>
 
   <script>
-    const routes = ['home', 'properties', 'location', 'contact', 'partners'];
+    const routes = ['home', 'contact', 'discover', 'mint', 'vault', 'trust', 'teller'];
+    // Legacy alias — old #partners links redirect to #discover
+    if (location.hash === '#partners') location.hash = '#discover';
+    // Legacy alias — old #properties links redirect to #home
+    if (location.hash === '#properties') location.hash = '#home';
     const navLinks = document.querySelectorAll('.nav a[data-route]');
     const sections = document.querySelectorAll('.section');
 
@@ -846,6 +3446,28 @@
     window.addEventListener('hashchange', routeFromHash);
     routeFromHash();
 
+    // ===== Quarters view toggle (cards <-> compare) =====
+    const viewBtns = document.querySelectorAll('.view-btn');
+    const cardsView = document.querySelector('#home .cards');
+    const compareView = document.querySelector('#home .compare-view');
+    viewBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const v = btn.dataset.view;
+        viewBtns.forEach(b => {
+          const isActive = b === btn;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        if (v === 'compare') {
+          cardsView.hidden = true;
+          compareView.hidden = false;
+        } else {
+          cardsView.hidden = false;
+          compareView.hidden = true;
+        }
+      });
+    });
+
     document.querySelectorAll('.subtab').forEach(btn => {
       btn.addEventListener('click', () => {
         const key = btn.dataset.sub;
@@ -854,23 +3476,163 @@
       });
     });
 
+    // ===== Property photo sets =====
+    const mintNums = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,22,23,24,25,26];
+    const vaultNums = [2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,33,34,35,36,37,38,40,41,44,45,46,47,48,50,51,52,53,54,55,56,58,59,61,62,63,64,65,66,67,69,70,72,73,74,75,76,77,78,79,80,81,82,83,85,86,87,88,90,91,93,94,95,96,97,99,100,101,102,103,104,105,106,107,108,109,110,111];
+
+    // Trust images — mixed file extensions (webp / png / jpg)
+    const trustFiles = [
+      'image1.webp','image2.webp','image3.webp','image4.webp','image5.webp',
+      'image6.webp','image7.webp','image8.webp','image9.webp','image10.webp',
+      'image11.webp','image12.webp','image13.webp',
+      'image14.png','image15.jpg','image16.png'
+    ];
+
+    const tellerNums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+    const properties = {
+      mint:   { folder: 'Mint',            files: mintNums.map(n => `image${n}.jpg`),   label: 'The Mint'   },
+      vault:  { folder: 'The Vault/Vault', files: vaultNums.map(n => `image${n}.jpg`),  label: 'The Vault'  },
+      trust:  { folder: 'Trust',           files: trustFiles,                           label: 'The Trust'  },
+      teller: { folder: 'Teller',          files: tellerNums.map(n => `image${n}.png`), label: 'The Teller' }
+    };
+
+    const DOT_THRESHOLD = 12; // switch from dots to counter above this count
+
+    function buildCarousel(carousel, cfg) {
+      const track = document.createElement('div');
+      track.className = 'carousel-track';
+      cfg.files.forEach((name, i) => {
+        const img = document.createElement('img');
+        img.src = `${cfg.folder}/${encodeURIComponent(name)}`;
+        img.alt = cfg.label;
+        img.loading = i === 0 ? 'eager' : 'lazy';
+        img.decoding = 'async';
+        track.appendChild(img);
+      });
+
+      const prev = document.createElement('button');
+      prev.className = 'carousel-btn prev';
+      prev.setAttribute('aria-label', 'Previous');
+      prev.innerHTML = '&#8249;';
+
+      const next = document.createElement('button');
+      next.className = 'carousel-btn next';
+      next.setAttribute('aria-label', 'Next');
+      next.innerHTML = '&#8250;';
+
+      carousel.appendChild(track);
+      carousel.appendChild(prev);
+      carousel.appendChild(next);
+
+      let indicator;
+      if (cfg.files.length <= DOT_THRESHOLD) {
+        indicator = document.createElement('div');
+        indicator.className = 'carousel-dots';
+        cfg.files.forEach((_, i) => {
+          const dot = document.createElement('button');
+          dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+          dot.setAttribute('aria-label', `Slide ${i + 1}`);
+          indicator.appendChild(dot);
+        });
+      } else {
+        indicator = document.createElement('div');
+        indicator.className = 'carousel-counter';
+        indicator.textContent = `1 / ${cfg.files.length}`;
+      }
+      carousel.appendChild(indicator);
+
+      return { track, prev, next, indicator, total: cfg.files.length };
+    }
+
+    // ===== Lightbox =====
+    const lightbox = document.getElementById('lightbox');
+    const lbImage = document.getElementById('lbImage');
+    const lbCounter = document.getElementById('lbCounter');
+    const lbPrev = document.getElementById('lbPrev');
+    const lbNext = document.getElementById('lbNext');
+    const lbClose = document.getElementById('lbClose');
+    let lbProp = null, lbIdx = 0;
+
+    function openLightbox(propKey, startIdx) {
+      const cfg = properties[propKey];
+      if (!cfg) return;
+      lbProp = propKey;
+      lbIdx = startIdx || 0;
+      renderLightbox();
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function renderLightbox() {
+      const cfg = properties[lbProp];
+      const name = cfg.files[lbIdx];
+      lbImage.src = `${cfg.folder}/${encodeURIComponent(name)}`;
+      lbImage.alt = cfg.label;
+      lbCounter.textContent = `${lbIdx + 1} / ${cfg.files.length}`;
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    function lbGo(delta) {
+      const cfg = properties[lbProp];
+      lbIdx = (lbIdx + delta + cfg.files.length) % cfg.files.length;
+      renderLightbox();
+    }
+    lbPrev.addEventListener('click', e => { e.stopPropagation(); lbGo(-1); });
+    lbNext.addEventListener('click', e => { e.stopPropagation(); lbGo(1); });
+    lbClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowLeft') lbGo(-1);
+      else if (e.key === 'ArrowRight') lbGo(1);
+    });
+
     document.querySelectorAll('[data-carousel]').forEach(carousel => {
-      const track = carousel.querySelector('.carousel-track');
-      const imgs = track.querySelectorAll('img');
-      const dots = carousel.querySelectorAll('.carousel-dot');
-      const prevBtn = carousel.querySelector('.prev');
-      const nextBtn = carousel.querySelector('.next');
+      const cfg = properties[carousel.dataset.property];
+      if (!cfg) return;
+      if (carousel.dataset.carouselInit === '1') return;
+      carousel.dataset.carouselInit = '1';
+      if (!carousel.classList.contains('carousel')) carousel.classList.add('carousel');
+      const isGallery = carousel.classList.contains('property-gallery');
+      const { track, prev, next, indicator, total } = buildCarousel(carousel, cfg);
+
+      // Only gallery carousels open the lightbox on click
+      if (isGallery) {
+        carousel.addEventListener('click', e => {
+          // don't hijack the carousel nav arrows/dots
+          if (e.target.closest('.carousel-btn, .carousel-dot, .carousel-dots')) return;
+          const curIdx = [...track.querySelectorAll('img')].findIndex((img, i) => {
+            const m = track.style.transform.match(/-?\d+(\.\d+)?/);
+            const tx = m ? Math.abs(parseFloat(m[0])) : 0;
+            return i * 100 === tx;
+          });
+          openLightbox(carousel.dataset.property, Math.max(0, curIdx));
+        });
+      }
       let idx = 0;
 
-      function goTo(i) {
-        idx = (i + imgs.length) % imgs.length;
+      function update() {
         track.style.transform = `translateX(-${idx * 100}%)`;
-        dots.forEach((d, j) => d.classList.toggle('active', j === idx));
+        if (indicator.classList.contains('carousel-dots')) {
+          indicator.querySelectorAll('.carousel-dot').forEach((d, j) => d.classList.toggle('active', j === idx));
+        } else {
+          indicator.textContent = `${idx + 1} / ${total}`;
+        }
       }
+      function goTo(i) { idx = (i + total) % total; update(); }
 
-      prevBtn.addEventListener('click', e => { e.stopPropagation(); goTo(idx - 1); });
-      nextBtn.addEventListener('click', e => { e.stopPropagation(); goTo(idx + 1); });
-      dots.forEach((dot, j) => dot.addEventListener('click', e => { e.stopPropagation(); goTo(j); }));
+      prev.addEventListener('click', e => { e.stopPropagation(); goTo(idx - 1); });
+      next.addEventListener('click', e => { e.stopPropagation(); goTo(idx + 1); });
+      if (indicator.classList.contains('carousel-dots')) {
+        indicator.querySelectorAll('.carousel-dot').forEach((d, j) =>
+          d.addEventListener('click', e => { e.stopPropagation(); goTo(j); })
+        );
+      }
     });
   </script>
 
