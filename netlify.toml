@@ -1,0 +1,47 @@
+# Netlify configuration for Bank Street Quarters
+#
+# The site is a single static index.html plus assets — no build step.
+# This file adds security headers to every response. HTTPS itself and the
+# HTTP->HTTPS redirect are turned on in the Netlify dashboard
+# (Site -> Domain management -> HTTPS -> Force HTTPS); the HSTS header below
+# is what keeps browsers on HTTPS after their first secure visit.
+
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Force HTTPS for a year, cover subdomains, allow preload-list submission.
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+    # Don't let browsers guess a file's type (blocks a class of MIME attacks).
+    X-Content-Type-Options = "nosniff"
+
+    # Disallow the site being embedded in an <iframe> elsewhere (clickjacking).
+    X-Frame-Options = "DENY"
+
+    # Send only the origin (not full path/query) when leaving the site.
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+    # Deny powerful browser features the site never uses.
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+
+    # Content-Security-Policy — scoped to exactly what index.html loads:
+    #   inline <style> + <script> blocks  -> 'unsafe-inline' on style/script
+    #   Google Fonts CSS + local .ttf     -> fonts.googleapis.com / fonts.gstatic.com
+    #   contact form POST                  -> formspree.io
+    # If the form moves to Netlify Forms, change form-action to 'self'.
+    Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'self'; form-action https://formspree.io; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests"
+
+# Long-cache the fingerprint-free static assets. index.html stays uncached so
+# content edits go live immediately.
+[[headers]]
+  for = "/website/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

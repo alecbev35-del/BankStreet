@@ -4,17 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bank Street Quarters — A Great Place to Stay</title>
+  <link rel="canonical" href="https://stayatbankstreet.com/" />
+  <meta property="og:url" content="https://stayatbankstreet.com/" />
   <meta name="description" content="A collection of thoughtfully designed luxury quarters in the heart of historic downtown Bristol, Tennessee." />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/jpeg" href="./website/og-image.jpg" />
-  <link rel="apple-touch-icon" href="./website/og-image.jpg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./website/web/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./website/web/icon-192.png" />
+  <link rel="apple-touch-icon" href="./website/web/apple-touch-icon.png" />
+  <meta name="theme-color" content="#354830" />
 
   <!-- Open Graph (Facebook, LinkedIn, iMessage, etc.) -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Bank Street Quarters — A Great Place to Stay" />
   <meta property="og:description" content="A collection of thoughtfully designed luxury quarters in the heart of historic downtown Bristol, Tennessee." />
-  <meta property="og:image" content="https://raw.githubusercontent.com/alecbev35-del/BankStreet/main/website/og-image.jpg" />
+  <meta property="og:image" content="https://stayatbankstreet.com/website/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:alt" content="Bank Street Quarters — illustrated building at dusk with glowing sign" />
   <meta property="og:site_name" content="Bank Street Quarters" />
@@ -23,8 +27,69 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Bank Street Quarters — A Great Place to Stay" />
   <meta name="twitter:description" content="Luxury quarters in the heart of historic downtown Bristol, Tennessee." />
-  <meta name="twitter:image" content="https://raw.githubusercontent.com/alecbev35-del/BankStreet/main/website/og-image.jpg" />
+  <meta name="twitter:image" content="https://stayatbankstreet.com/website/og-image.jpg" />
   <meta name="twitter:image:alt" content="Bank Street Quarters — illustrated building at dusk" />
+  <!--
+    Structured data (schema.org). Lets Google show the quarters as rich
+    results and feeds Google Business / Maps. Every figure below is taken
+    from the page copy.
+
+    STILL TO ADD once known:
+      * "streetAddress"      -> the real Bank Street address
+      * "telephone"          -> the real number (placeholder is not used here on purpose)
+      * "geo" lat/lng        -> from Google Maps, right-click the pin
+  -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    "@id": "https://stayatbankstreet.com/",
+    "url": "https://stayatbankstreet.com/",
+    "name": "Bank Street Quarters",
+    "description": "A collection of thoughtfully designed luxury quarters in the heart of historic downtown Bristol, Tennessee.",
+    "image": "https://stayatbankstreet.com/website/og-image.jpg",
+    "priceRange": "$$-$$$",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bristol",
+      "addressRegion": "TN",
+      "addressCountry": "US"
+    },
+    "containsPlace": [
+      {
+        "@type": "Accommodation",
+        "name": "The Mint",
+        "occupancy": { "@type": "QuantitativeValue", "maxValue": 2, "unitText": "guests" },
+        "numberOfBedrooms": 1,
+        "numberOfBathroomsTotal": 1,
+        "floorSize": { "@type": "QuantitativeValue", "value": 250, "unitCode": "FTK" }
+      },
+      {
+        "@type": "Accommodation",
+        "name": "The Vault",
+        "occupancy": { "@type": "QuantitativeValue", "maxValue": 10, "unitText": "guests" },
+        "numberOfBedrooms": 4,
+        "numberOfBathroomsTotal": 3.5,
+        "floorSize": { "@type": "QuantitativeValue", "value": 2400, "unitCode": "FTK" }
+      },
+      {
+        "@type": "Apartment",
+        "name": "The Trust",
+        "numberOfBedrooms": 2,
+        "numberOfBathroomsTotal": 2,
+        "floorSize": { "@type": "QuantitativeValue", "value": 1100, "unitCode": "FTK" }
+      },
+      {
+        "@type": "Apartment",
+        "name": "The Teller",
+        "numberOfBedrooms": 2,
+        "numberOfBathroomsTotal": 2,
+        "floorSize": { "@type": "QuantitativeValue", "value": 1100, "unitCode": "FTK" }
+      }
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
@@ -226,6 +291,17 @@
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Respect the OS "reduce motion" setting — section fades, carousel
+       slides and hover transitions all collapse to instant. */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
 
     /* Titles — Instrument Serif display */
@@ -2103,8 +2179,10 @@
 
     @media (max-width: 640px) {
       main { padding: 2.5rem 1rem 4rem; }
-      .nav-inner { gap: 1.25rem; padding: 0.8rem 0.75rem; }
-      .nav a { padding: 0.3rem 0.25rem; font-size: 1.3rem; letter-spacing: 0.02em; }
+      .nav-inner { gap: 1.75rem; padding: 0.8rem 0.5rem; flex-wrap: nowrap; }
+      .nav a { padding: 0.3rem 0.15rem; font-size: 1.35rem; letter-spacing: 0.01em; white-space: nowrap; }
+      /* On phones the nav collapses to Home · Contact · Discover on one line */
+      .nav-extra { display: none; }
     }
   </style>
 </head>
@@ -2118,9 +2196,9 @@
   <!-- NAV -->
   <nav class="nav" aria-label="Primary">
     <div class="nav-inner">
-      <a href="#home" data-route="home">Home / Quarters</a>
+      <a href="#home" data-route="home">Home<span class="nav-extra"> / Quarters</span></a>
       <a href="#contact" data-route="contact">Contact</a>
-      <a href="#discover" data-route="discover">Discover Bristol</a>
+      <a href="#discover" data-route="discover">Discover<span class="nav-extra"> Bristol</span></a>
     </div>
   </nav>
 
@@ -3488,13 +3566,14 @@
       'image14.png','image15.jpg','image16.png'
     ];
 
-    const tellerNums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    // image8 omitted — source file is a 180×118 thumbnail, too small for the gallery
+    const tellerNums = [1, 2, 3, 4, 5, 6, 7, 9];
 
     const properties = {
       mint:   { folder: 'Mint',            files: mintNums.map(n => `image${n}.jpg`),   label: 'The Mint'   },
       vault:  { folder: 'The Vault/Vault', files: vaultNums.map(n => `image${n}.jpg`),  label: 'The Vault'  },
       trust:  { folder: 'Trust',           files: trustFiles,                           label: 'The Trust'  },
-      teller: { folder: 'Teller',          files: tellerNums.map(n => `image${n}.png`), label: 'The Teller' }
+      teller: { folder: 'Teller',          files: tellerNums.map(n => `image${n}.jpg`), label: 'The Teller' }
     };
 
     const DOT_THRESHOLD = 12; // switch from dots to counter above this count
@@ -3505,7 +3584,7 @@
       cfg.files.forEach((name, i) => {
         const img = document.createElement('img');
         img.src = `${cfg.folder}/${encodeURIComponent(name)}`;
-        img.alt = cfg.label;
+        img.alt = `${cfg.label} — photo ${i + 1} of ${cfg.files.length}`;
         img.loading = i === 0 ? 'eager' : 'lazy';
         img.decoding = 'async';
         track.appendChild(img);

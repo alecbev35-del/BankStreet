@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Archives of source art (originals live outside the repo)
+*.zip
+
+# Scratch
+/tmp/
