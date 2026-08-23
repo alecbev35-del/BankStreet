@@ -78,12 +78,16 @@
     "description": "A collection of thoughtfully designed luxury quarters in the heart of historic downtown Bristol, Tennessee.",
     "image": "https://stayatbankstreet.com/website/og-image.jpg",
     "priceRange": "$$-$$$",
+    "telephone": "+1-423-360-7376",
     "address": {
       "@type": "PostalAddress",
+      "streetAddress": "12 Bank Street",
       "addressLocality": "Bristol",
       "addressRegion": "TN",
+      "postalCode": "37620",
       "addressCountry": "US"
     },
+    "hasMap": "https://www.google.com/maps/search/?api=1&query=Bank+Street+Quarters+Bristol+TN",
     "containsPlace": [
       {
         "@type": "Accommodation",
@@ -3616,6 +3620,24 @@
     window.addEventListener('hashchange', routeFromHash);
     routeFromHash();
 
+    // ===== GA4 secondary events: phone / email / Discover clicks =====
+    document.addEventListener('click', function (e) {
+      if (!window.gtag) return;
+      var a = e.target.closest && e.target.closest('a');
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('tel:') === 0) {
+        gtag('event', 'phone_click', { number: href.replace('tel:', '') });
+      } else if (href.indexOf('mailto:') === 0) {
+        gtag('event', 'email_click', { address: href.replace('mailto:', '') });
+      } else if (a.closest('#discover') && /^https?:/.test(href)) {
+        gtag('event', 'discover_click', {
+          link_text: (a.textContent || '').trim().slice(0, 60),
+          link_url: href
+        });
+      }
+    });
+
     // ===== Quarters view toggle (cards <-> compare) =====
     const viewBtns = document.querySelectorAll('.view-btn');
     const cardsView = document.querySelector('#home .cards');
@@ -3807,5 +3829,58 @@
     });
   </script>
 
+  <!-- ===== Cookie consent (GA4 Consent Mode v2) ===== -->
+  <div id="cookieConsent" class="cookie-consent" role="dialog" aria-live="polite"
+       aria-label="Cookie consent" hidden>
+    <p class="cookie-text">
+      We use Google Analytics to understand how visitors find and use this site.
+      No data is collected until you accept.
+    </p>
+    <div class="cookie-actions">
+      <button type="button" id="cookieDecline" class="cookie-btn cookie-btn--ghost">Decline</button>
+      <button type="button" id="cookieAccept" class="cookie-btn">Accept</button>
+    </div>
+  </div>
+  <style>
+    .cookie-consent {
+      position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 9999;
+      max-width: 640px; margin: 0 auto; display: flex; flex-wrap: wrap;
+      align-items: center; gap: 0.75rem 1.25rem;
+      background: #354830; color: #f4efe1;
+      padding: 1rem 1.25rem; border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.28);
+      font-family: 'Cormorant', Georgia, serif;
+    }
+    .cookie-text { margin: 0; flex: 1 1 260px; font-size: 1.05rem; line-height: 1.4; }
+    .cookie-actions { display: flex; gap: 0.6rem; margin-left: auto; }
+    .cookie-btn {
+      font: inherit; font-size: 1rem; cursor: pointer; border: 1px solid #f4efe1;
+      background: #f4efe1; color: #354830; padding: 0.45rem 1.1rem; border-radius: 8px;
+    }
+    .cookie-btn--ghost { background: transparent; color: #f4efe1; }
+    .cookie-btn:hover { opacity: 0.88; }
+    @media (max-width: 480px) { .cookie-actions { width: 100%; } .cookie-btn { flex: 1; } }
+  </style>
+  <script>
+    (function () {
+      var KEY = 'bsq-consent';
+      var banner = document.getElementById('cookieConsent');
+      var stored;
+      try { stored = localStorage.getItem(KEY); } catch (e) {}
+      if (!stored && banner) banner.hidden = false;
+      function choose(value) {
+        try { localStorage.setItem(KEY, value); } catch (e) {}
+        if (window.gtag && value === 'granted') {
+          gtag('consent', 'update', { analytics_storage: 'granted' });
+          gtag('event', 'page_view'); // first cookie-backed hit after opt-in
+        }
+        if (banner) banner.hidden = true;
+      }
+      var a = document.getElementById('cookieAccept');
+      var d = document.getElementById('cookieDecline');
+      if (a) a.addEventListener('click', function () { choose('granted'); });
+      if (d) d.addEventListener('click', function () { choose('denied'); });
+    })();
+  </script>
 </body>
 </html>

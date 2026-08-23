@@ -31,7 +31,9 @@
     #   inline <style> + <script> blocks  -> 'unsafe-inline' on style/script
     #   Google Fonts CSS + local .ttf     -> fonts.googleapis.com / fonts.gstatic.com
     #   contact form POST                  -> 'self' (Netlify Forms)
-    Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests"
+    #   Google Analytics 4 (gtag.js)       -> googletagmanager.com (script),
+    #                                         google-analytics.com / *.analytics.google.com (beacons)
+    Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests"
 
 # Long-cache the fingerprint-free static assets. index.html stays uncached so
 # content edits go live immediately.
