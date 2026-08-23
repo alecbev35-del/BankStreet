@@ -3,6 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google tag (gtag.js) — GA4 property G-YQP4F98MN5, with Consent Mode v2.
+       Analytics stays denied until the visitor accepts the cookie banner below. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YQP4F98MN5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // Default consent: deny storage until the visitor opts in.
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'granted',
+      security_storage: 'granted',
+      wait_for_update: 500
+    });
+    // Honour a returning visitor's prior choice.
+    try {
+      if (localStorage.getItem('bsq-consent') === 'granted') {
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+      }
+    } catch (e) {}
+
+    gtag('js', new Date());
+    gtag('config', 'G-YQP4F98MN5', { anonymize_ip: true });
+  </script>
+
   <title>Bank Street Quarters — A Great Place to Stay</title>
   <link rel="canonical" href="https://stayatbankstreet.com/" />
   <meta property="og:url" content="https://stayatbankstreet.com/" />
@@ -1313,6 +1342,9 @@
       margin-top: 1rem;
     }
 
+    /* Attribute-level hide must beat .contact-form's display:grid */
+    .contact-form[hidden] { display: none; }
+
     .contact-form select {
       width: 100%;
       background: #FFFFFF;
@@ -1368,6 +1400,21 @@
     }
 
     .contact-form textarea { min-height: 140px; resize: vertical; }
+
+    /* Netlify honeypot field — hidden from real users, visible to bots */
+    .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+    .form-success {
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--forest);
+      border-radius: 2px;
+      background: rgba(53, 72, 48, 0.06);
+      color: var(--forest);
+      font-family: 'Cormorant', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
 
     .btn {
       display: inline-block;
@@ -3055,21 +3102,24 @@
       <div class="divider"></div>
 
       <!-- Phone-first CTA -->
-      <a class="phone-cta" href="tel:+14235551234">
+      <a class="phone-cta" href="tel:+14233607376">
         <span class="phone-label">Call or text</span>
-        <span class="phone-number">(423) 555&nbsp;·&nbsp;1234</span>
+        <span class="phone-number">(423) 360&nbsp;·&nbsp;7376</span>
       </a>
 
       <h2 style="margin-top: 3rem;">Prefer to write?</h2>
 
       <!--
-        FORMSPREE SETUP:
-        1. Sign up at https://formspree.io (free tier handles ~50 submissions/mo)
-        2. Create a new form, copy the form ID (looks like "xrgjwoql")
-        3. Replace YOUR_FORM_ID below with that ID
+        Netlify Forms: submissions appear in the Netlify dashboard
+        (Project -> Forms -> "contact"). No third-party service or API key.
+        Set up email/Slack notifications under Forms -> Settings.
       -->
-      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <input type="hidden" name="_subject" value="New inquiry — Bank Street Quarters" />
+      <form class="contact-form" name="contact" method="POST"
+            data-netlify="true" netlify-honeypot="bot-field" action="/#contact">
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hp-field" aria-hidden="true">
+          <label>Leave this field empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </p>
 
         <div>
           <label for="name">Name <span class="required-mark">*</span></label>
@@ -3077,11 +3127,11 @@
         </div>
         <div>
           <label for="phone">Phone <span class="required-mark">*</span></label>
-          <input id="phone" name="phone" type="tel" required autocomplete="tel" placeholder="(423) 555-1234" />
+          <input id="phone" name="phone" type="tel" required autocomplete="tel" placeholder="(423) 360-7376" />
         </div>
         <div>
           <label for="email">Email <span class="optional-mark">(optional)</span></label>
-          <input id="email" name="_replyto" type="email" autocomplete="email" />
+          <input id="email" name="email" type="email" autocomplete="email" />
         </div>
         <div>
           <label for="property">Which quarters?</label>
@@ -3102,11 +3152,11 @@
           <textarea id="message" name="message" placeholder="Anything we should know? Group size, special occasion, questions..."></textarea>
         </div>
 
-        <!-- Honeypot anti-spam (hidden) -->
-        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-
         <button type="submit" class="btn">Request a Call Back</button>
       </form>
+      <p class="form-success" id="formSuccess" role="status" hidden>
+        Thank you — your request is in. We'll call or text you shortly.
+      </p>
 
       <!-- Meet your host -->
       <h2 style="margin-top: 3.5rem;">Meet Your Host</h2>
@@ -3506,6 +3556,38 @@
     if (location.hash === '#partners') location.hash = '#discover';
     // Legacy alias — old #properties links redirect to #home
     if (location.hash === '#properties') location.hash = '#home';
+    // ===== Contact form -> Netlify Forms (AJAX, stay on page) =====
+    const contactForm = document.querySelector('form[name="contact"]');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const btn = contactForm.querySelector('button[type="submit"]');
+        const data = new URLSearchParams(new FormData(contactForm));
+        if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: data.toString()
+        }).then(function (r) {
+          if (!r.ok) throw new Error('Network response was not ok');
+          const ok = document.getElementById('formSuccess');
+          contactForm.hidden = true;
+          if (ok) { ok.hidden = false; ok.scrollIntoView({ block: 'center' }); }
+          // GA4 primary conversion — a real inquiry was delivered to Netlify.
+          if (window.gtag) {
+            var unitSel = contactForm.querySelector('#property');
+            gtag('event', 'generate_lead', {
+              form_name: 'contact',
+              unit: (unitSel && unitSel.value) || 'no preference'
+            });
+          }
+        }).catch(function () {
+          if (btn) { btn.disabled = false; btn.textContent = 'Request a Call Back'; }
+          alert('Sorry — something went wrong sending that. Please call or text us instead.');
+        });
+      });
+    }
+
     const navLinks = document.querySelectorAll('.nav a[data-route]');
     const sections = document.querySelectorAll('.section');
 
@@ -3514,6 +3596,16 @@
       sections.forEach(s => s.classList.toggle('active', s.id === route));
       navLinks.forEach(a => a.classList.toggle('active', a.dataset.route === route));
       window.scrollTo({ top: 0, behavior: 'instant' });
+      // GA4: treat each in-app route as a virtual page view, and flag unit views.
+      if (window.gtag) {
+        gtag('event', 'page_view', {
+          page_location: location.origin + location.pathname + '#' + route,
+          page_title: 'BSQ — ' + route
+        });
+        if (['mint', 'vault', 'trust', 'teller'].indexOf(route) !== -1) {
+          gtag('event', 'view_unit', { unit_name: route });
+        }
+      }
     }
 
     function routeFromHash() {

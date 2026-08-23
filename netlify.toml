@@ -30,9 +30,8 @@
     # Content-Security-Policy — scoped to exactly what index.html loads:
     #   inline <style> + <script> blocks  -> 'unsafe-inline' on style/script
     #   Google Fonts CSS + local .ttf     -> fonts.googleapis.com / fonts.gstatic.com
-    #   contact form POST                  -> formspree.io
-    # If the form moves to Netlify Forms, change form-action to 'self'.
-    Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'self'; form-action https://formspree.io; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests"
+    #   contact form POST                  -> 'self' (Netlify Forms)
+    Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests"
 
 # Long-cache the fingerprint-free static assets. index.html stays uncached so
 # content edits go live immediately.
