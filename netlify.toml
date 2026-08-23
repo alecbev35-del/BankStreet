@@ -8,6 +8,11 @@
 
 [build]
   publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  # Availability feed reads live Airbnb iCal URLs from env vars ICAL_MINT / ICAL_VAULT.
+  node_bundler = "esbuild"
 
 [[headers]]
   for = "/*"

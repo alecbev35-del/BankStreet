@@ -7,3 +7,7 @@
 
 # Scratch
 /tmp/
+
+# Booking calendar exports — contain reservation IDs + guest phone digits (PII). Never commit.
+bookings/
+*.ics

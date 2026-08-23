@@ -1136,6 +1136,66 @@
       line-height: 1.4;
     }
 
+    /* ===== Live availability calendar (fed by the Netlify function) ===== */
+    .availability {
+      margin-top: 1.1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(53, 72, 48, 0.15);
+    }
+    .avail-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 0.6rem;
+    }
+    .avail-title {
+      font-family: 'Cormorant', serif; font-weight: 700;
+      font-size: 1.05rem; color: var(--forest); letter-spacing: 0.01em;
+    }
+    .avail-nav { display: flex; gap: 0.25rem; }
+    .avail-nav button {
+      font: inherit; cursor: pointer; width: 1.9rem; height: 1.9rem;
+      line-height: 1; border: 1px solid rgba(53,72,48,0.3);
+      background: var(--cream); color: var(--forest); border-radius: 4px;
+    }
+    .avail-nav button:hover:not(:disabled) { background: var(--forest); color: var(--cream); }
+    .avail-nav button:disabled { opacity: 0.35; cursor: default; }
+    .avail-month {
+      text-align: center; font-family: 'Cormorant', serif; font-weight: 600;
+      color: var(--forest); font-size: 0.95rem; margin-bottom: 0.4rem;
+    }
+    .avail-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+    .avail-dow {
+      text-align: center; font-family: 'Cormorant', serif; font-size: 0.66rem;
+      text-transform: uppercase; letter-spacing: 0.04em;
+      color: rgba(53,72,48,0.6); padding-bottom: 0.2rem;
+    }
+    .avail-day {
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant', serif; font-size: 0.8rem; color: var(--forest);
+      border-radius: 4px;
+    }
+    .avail-day.blank { visibility: hidden; }
+    .avail-day.past { color: rgba(53,72,48,0.28); }
+    .avail-day.open { background: rgba(53,72,48,0.06); }
+    .avail-day.booked {
+      color: rgba(53,72,48,0.4); text-decoration: line-through;
+      background: repeating-linear-gradient(-45deg, rgba(53,72,48,0.10) 0 3px, transparent 3px 6px);
+    }
+    .avail-legend {
+      display: flex; gap: 1rem; margin-top: 0.55rem;
+      font-family: 'Cormorant', serif; font-size: 0.72rem; color: rgba(53,72,48,0.7);
+    }
+    .avail-legend span { display: inline-flex; align-items: center; gap: 0.3rem; }
+    .avail-swatch { width: 0.75rem; height: 0.75rem; border-radius: 2px; }
+    .avail-swatch.open { background: rgba(53,72,48,0.14); }
+    .avail-swatch.booked {
+      background: repeating-linear-gradient(-45deg, rgba(53,72,48,0.35) 0 3px, transparent 3px 6px);
+      border: 1px solid rgba(53,72,48,0.25);
+    }
+    .avail-note {
+      margin-top: 0.5rem; font-family: 'Cormorant', serif; font-size: 0.72rem;
+      color: rgba(53,72,48,0.6);
+    }
+
     /* All sections — left-aligned with a gentle inset (not flush to the edge) */
     .section { text-align: left; }
     .section .divider { margin-left: 0; margin-right: 0; }
@@ -2612,6 +2672,22 @@
             <li>Self check-in with a personal touch</li>
             <li>10/10 rating · 22 verified reviews</li>
           </ul>
+          <div class="availability" data-availability="mint" hidden>
+            <div class="avail-head">
+              <span class="avail-title">Availability</span>
+              <div class="avail-nav">
+                <button type="button" class="avail-prev" aria-label="Previous month">&#8249;</button>
+                <button type="button" class="avail-next" aria-label="Next month">&#8250;</button>
+              </div>
+            </div>
+            <div class="avail-month"></div>
+            <div class="avail-grid"></div>
+            <div class="avail-legend">
+              <span><span class="avail-swatch open"></span>Open</span>
+              <span><span class="avail-swatch booked"></span>Booked</span>
+            </div>
+            <p class="avail-note"></p>
+          </div>
         </aside>
       </div>
     </section>
@@ -2841,6 +2917,22 @@
             <li>1 min walk to the Paramount</li>
             <li>10/10 · Loved by Guests (16 reviews)</li>
           </ul>
+          <div class="availability" data-availability="vault" hidden>
+            <div class="avail-head">
+              <span class="avail-title">Availability</span>
+              <div class="avail-nav">
+                <button type="button" class="avail-prev" aria-label="Previous month">&#8249;</button>
+                <button type="button" class="avail-next" aria-label="Next month">&#8250;</button>
+              </div>
+            </div>
+            <div class="avail-month"></div>
+            <div class="avail-grid"></div>
+            <div class="avail-legend">
+              <span><span class="avail-swatch open"></span>Open</span>
+              <span><span class="avail-swatch booked"></span>Booked</span>
+            </div>
+            <p class="avail-note"></p>
+          </div>
         </aside>
       </div>
     </section>
@@ -3880,6 +3972,99 @@
       var d = document.getElementById('cookieDecline');
       if (a) a.addEventListener('click', function () { choose('granted'); });
       if (d) d.addEventListener('click', function () { choose('denied'); });
+    })();
+  </script>
+  <!-- ===== Live availability calendars ===== -->
+  <script>
+    (function () {
+      var MONTHS = ['January','February','March','April','May','June',
+                    'July','August','September','October','November','December'];
+      var DOW = ['S','M','T','W','T','F','S'];
+      var HORIZON = 12; // months of navigation allowed from this month
+
+      function ymd(d) {
+        return d.getFullYear() + '-' +
+          String(d.getMonth() + 1).padStart(2, '0') + '-' +
+          String(d.getDate()).padStart(2, '0');
+      }
+
+      // Expand [{start,end}] (end = checkout, exclusive) into a Set of booked days.
+      function bookedSet(ranges) {
+        var set = new Set();
+        (ranges || []).forEach(function (r) {
+          var d = new Date(r.start + 'T00:00:00');
+          var end = new Date(r.end + 'T00:00:00');
+          while (d < end) { set.add(ymd(d)); d.setDate(d.getDate() + 1); }
+        });
+        return set;
+      }
+
+      function setup(el, key) {
+        var monthEl = el.querySelector('.avail-month');
+        var grid = el.querySelector('.avail-grid');
+        var prev = el.querySelector('.avail-prev');
+        var next = el.querySelector('.avail-next');
+        var note = el.querySelector('.avail-note');
+        var today = new Date(); today.setHours(0, 0, 0, 0);
+        var booked = new Set();
+        var cursor = new Date(today.getFullYear(), today.getMonth(), 1);
+        var minMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+        var maxMonth = new Date(today.getFullYear(), today.getMonth() + HORIZON, 1);
+
+        function render() {
+          monthEl.textContent = MONTHS[cursor.getMonth()] + ' ' + cursor.getFullYear();
+          grid.innerHTML = '';
+          DOW.forEach(function (d) {
+            var h = document.createElement('div');
+            h.className = 'avail-dow'; h.textContent = d; grid.appendChild(h);
+          });
+          var first = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
+          var days = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 0).getDate();
+          for (var b = 0; b < first.getDay(); b++) {
+            var blank = document.createElement('div');
+            blank.className = 'avail-day blank'; grid.appendChild(blank);
+          }
+          for (var day = 1; day <= days; day++) {
+            var cell = document.createElement('div');
+            var date = new Date(cursor.getFullYear(), cursor.getMonth(), day);
+            var iso = ymd(date);
+            cell.className = 'avail-day';
+            cell.textContent = day;
+            if (date < today) cell.className += ' past';
+            else if (booked.has(iso)) { cell.className += ' booked'; cell.title = 'Booked'; }
+            else { cell.className += ' open'; cell.title = 'Available'; }
+            grid.appendChild(cell);
+          }
+          prev.disabled = cursor <= minMonth;
+          next.disabled = cursor >= maxMonth;
+        }
+
+        prev.addEventListener('click', function () {
+          cursor = new Date(cursor.getFullYear(), cursor.getMonth() - 1, 1); render();
+        });
+        next.addEventListener('click', function () {
+          cursor = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1); render();
+        });
+
+        fetch('/.netlify/functions/availability?property=' + encodeURIComponent(key))
+          .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+          .then(function (data) {
+            // If the feed isn't wired up yet, stay hidden and let the book button stand alone.
+            if (!data || data.configured === false) return;
+            booked = bookedSet(data.blocked);
+            if (data.updated) {
+              note.textContent = 'Live from our booking calendar · updated ' +
+                new Date(data.updated).toLocaleDateString();
+            }
+            render();
+            el.hidden = false;
+          })
+          .catch(function () { /* leave hidden on any error */ });
+      }
+
+      document.querySelectorAll('[data-availability]').forEach(function (el) {
+        setup(el, el.getAttribute('data-availability'));
+      });
     })();
   </script>
 </body>
