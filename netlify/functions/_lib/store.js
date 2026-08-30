@@ -38,7 +38,9 @@ async function fileWrite(obj) {
 export async function getJSON(key, fallback = null) {
   if (!useFile) {
     try {
-      const v = await getStore(STORE).get(key, { type: 'json' });
+      // Strong consistency so a read always reflects the latest write, even from
+      // a different region than the one that wrote (default is eventual).
+      const v = await getStore(STORE).get(key, { type: 'json', consistency: 'strong' });
       return v == null ? fallback : v;
     } catch (err) {
       if (!isUnconfigured(err)) return fallback; // read errors degrade gracefully
