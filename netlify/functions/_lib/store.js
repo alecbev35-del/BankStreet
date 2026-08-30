@@ -22,6 +22,19 @@ const STORE = 'crm';
 const FILE = path.join(os.tmpdir(), 'bsq-crm-store.json');
 let useFile = false;
 
+// Netlify normally injects the Blobs context automatically, but on this site it
+// isn't (ESM functions), so we configure it explicitly. SITE_ID is provided by
+// the runtime; NETLIFY_API_TOKEN is a personal access token set in env. If both
+// are present we use them; otherwise getStore() falls back to auto-context.
+function store() {
+  const siteID = process.env.SITE_ID || process.env.NETLIFY_SITE_ID;
+  const token = process.env.NETLIFY_API_TOKEN;
+  if (siteID && token) {
+    return getStore({ name: STORE, siteID, token, consistency: 'strong' });
+  }
+  return getStore(STORE);
+}
+
 // Matches ONLY the "Blobs not configured for this environment" case — never a
 // transient/runtime Blobs error, so production failures are never masked.
 function isUnconfigured(err) {
@@ -40,7 +53,7 @@ export async function getJSON(key, fallback = null) {
     try {
       // Strong consistency so a read always reflects the latest write, even from
       // a different region than the one that wrote (default is eventual).
-      const v = await getStore(STORE).get(key, { type: 'json', consistency: 'strong' });
+      const v = await store().get(key, { type: 'json', consistency: 'strong' });
       return v == null ? fallback : v;
     } catch (err) {
       if (!isUnconfigured(err)) return fallback; // read errors degrade gracefully
@@ -54,7 +67,7 @@ export async function getJSON(key, fallback = null) {
 export async function setJSON(key, value) {
   if (!useFile) {
     try {
-      await getStore(STORE).setJSON(key, value);
+      await store().setJSON(key, value);
       return;
     } catch (err) {
       if (!isUnconfigured(err)) throw err; // real write errors must surface

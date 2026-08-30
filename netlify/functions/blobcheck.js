@@ -10,7 +10,10 @@ export const handler = async () => {
     node: process.version,
   };
   try {
-    const s = getStore('crm');
+    const siteID = process.env.SITE_ID || process.env.NETLIFY_SITE_ID;
+    const token = process.env.NETLIFY_API_TOKEN;
+    out.usingExplicit = Boolean(siteID && token);
+    const s = (siteID && token) ? getStore({ name: 'crm', siteID, token }) : getStore('crm');
     await s.setJSON('__blobcheck', { t: Date.now() });
     const back = await s.get('__blobcheck', { type: 'json' });
     out.roundTrip = Boolean(back);
