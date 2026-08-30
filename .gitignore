@@ -11,3 +11,10 @@
 # Booking calendar exports — contain reservation IDs + guest phone digits (PII). Never commit.
 bookings/
 *.ics
+
+# Node / Netlify Functions
+node_modules/
+.netlify/
+.env
+.env.*
+deno.lock

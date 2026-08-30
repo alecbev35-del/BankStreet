@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Bank Street Quarters — Owner Dashboard</title>
+  <style>
+    :root{
+      --forest:#354830; --forest-2:#2b3b27; --cream:#f4efe1; --paper:#fbf9f2;
+      --ink:#2b3327; --muted:#7d8a72; --line:#e2dcc9; --gold:#b08a3e; --brass:#c9a24a;
+      --danger:#a6412f; --ok:#3f6b3a; --card:#ffffff;
+      --shadow:0 8px 30px rgba(53,72,48,.10);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--cream);color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+      font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
+    h1,h2,h3{font-family:Georgia,'Times New Roman',serif;color:var(--forest);margin:0}
+    a{color:var(--forest)}
+    button{font:inherit;cursor:pointer}
+    input,textarea,select{font:inherit}
+
+    /* ---------- Login ---------- */
+    .login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px}
+    .login-card{width:100%;max-width:380px;background:var(--card);border:1px solid var(--line);
+      border-radius:16px;padding:2.25rem 1.9rem;box-shadow:var(--shadow);text-align:center}
+    .login-card h1{font-size:1.5rem;margin-bottom:.25rem}
+    .login-card p.sub{color:var(--muted);margin:.25rem 0 1.5rem;font-size:.95rem}
+    .login-card input{width:100%;padding:.85rem 1rem;border:1px solid var(--line);border-radius:10px;
+      background:var(--paper);margin-bottom:.85rem}
+    .login-card input:focus{outline:2px solid var(--brass);outline-offset:1px}
+
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+      background:var(--forest);color:var(--cream);border:1px solid var(--forest);
+      padding:.8rem 1.3rem;border-radius:10px;font-weight:600;letter-spacing:.01em;
+      transition:background .15s,opacity .15s;width:100%}
+    .btn:hover{background:var(--forest-2)}
+    .btn.secondary{background:transparent;color:var(--forest)}
+    .btn.secondary:hover{background:rgba(53,72,48,.06)}
+    .btn.small{width:auto;padding:.5rem .9rem;font-size:.9rem;border-radius:8px}
+    .btn.danger{background:transparent;color:var(--danger);border-color:#e6c9c1}
+    .btn.danger:hover{background:#f7ece9}
+    .btn[disabled]{opacity:.5;cursor:default}
+
+    /* ---------- App shell ---------- */
+    .app{display:none;min-height:100vh}
+    .app.on{display:block}
+    header.top{position:sticky;top:0;z-index:20;background:var(--forest);color:var(--cream);
+      display:flex;align-items:center;gap:1rem;padding:.7rem 1rem;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+    header.top .brand{font-family:Georgia,serif;font-size:1.15rem;letter-spacing:.03em;white-space:nowrap}
+    header.top .brand small{display:block;font-size:.68rem;letter-spacing:.18em;opacity:.7;text-transform:uppercase}
+    header.top .spacer{flex:1}
+    header.top button.logout{background:transparent;border:1px solid rgba(244,239,225,.4);color:var(--cream);
+      padding:.4rem .8rem;border-radius:8px;font-size:.85rem}
+
+    nav.tabs{display:flex;gap:.15rem;overflow-x:auto;background:var(--forest-2);
+      padding:0 .5rem;position:sticky;top:52px;z-index:19;scrollbar-width:none}
+    nav.tabs::-webkit-scrollbar{display:none}
+    nav.tabs button{background:transparent;border:none;color:rgba(244,239,225,.7);
+      padding:.75rem .95rem;font-size:.92rem;font-weight:600;white-space:nowrap;border-bottom:2px solid transparent}
+    nav.tabs button.active{color:var(--cream);border-bottom-color:var(--brass)}
+
+    main{max-width:920px;margin:0 auto;padding:1.25rem 1rem 4rem}
+    .view{display:none}
+    .view.on{display:block;animation:fade .2s ease}
+    @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+    h2.view-title{font-size:1.4rem;margin-bottom:.15rem}
+    p.view-sub{color:var(--muted);margin:.1rem 0 1.25rem;font-size:.95rem}
+
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+      padding:1.15rem 1.2rem;box-shadow:var(--shadow);margin-bottom:1rem}
+    .card h3{font-size:1.1rem;margin-bottom:.15rem}
+    .card .hint{color:var(--muted);font-size:.85rem;margin:.1rem 0 .9rem}
+
+    .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin-bottom:1.1rem}
+    .tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.1rem;box-shadow:var(--shadow)}
+    .tile .n{font-family:Georgia,serif;font-size:2rem;color:var(--forest);line-height:1}
+    .tile .l{color:var(--muted);font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;margin-top:.35rem}
+    .tile.alert .n{color:var(--gold)}
+
+    .field{margin-bottom:.9rem}
+    .field label{display:block;font-size:.82rem;font-weight:600;color:var(--muted);
+      text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem}
+    .field .row{display:flex;align-items:center;gap:.5rem}
+    .field .prefix{color:var(--muted);font-size:1.1rem}
+    input.inp,textarea.inp,select.inp{width:100%;padding:.7rem .85rem;border:1px solid var(--line);
+      border-radius:10px;background:var(--paper)}
+    input.inp:focus,textarea.inp:focus,select.inp:focus{outline:2px solid var(--brass);outline-offset:1px}
+    textarea.inp{min-height:120px;resize:vertical;font-family:inherit}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+    @media(max-width:560px){.grid2{grid-template-columns:1fr}}
+
+    .price-unit{border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem;margin-bottom:.8rem;background:var(--paper)}
+    .price-unit h4{margin:0 0 .6rem;font-family:Georgia,serif;color:var(--forest);font-size:1.05rem;
+      display:flex;align-items:center;gap:.5rem}
+    .badge{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;padding:.15rem .5rem;
+      border-radius:999px;background:#eef0e6;color:var(--forest);font-weight:700}
+    .badge.lease{background:#efe7d5;color:var(--gold)}
+
+    .inq{border:1px solid var(--line);border-radius:12px;padding:.95rem 1rem;margin-bottom:.75rem;background:var(--card)}
+    .inq .head{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+    .inq .name{font-weight:700;font-size:1.05rem}
+    .inq .when{color:var(--muted);font-size:.82rem;margin-left:auto}
+    .inq .meta{color:var(--muted);font-size:.9rem;margin:.35rem 0}
+    .inq .msg{background:var(--paper);border-radius:8px;padding:.6rem .7rem;margin:.5rem 0;font-size:.95rem;white-space:pre-wrap}
+    .inq .acts{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;margin-top:.5rem}
+    .pill{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;
+      padding:.2rem .55rem;border-radius:999px}
+    .pill.new{background:#fbeecf;color:#8a6416}
+    .pill.contacted{background:#dfeaf5;color:#2c5a86}
+    .pill.booked{background:#dcefdb;color:#2f6b34}
+    .pill.closed{background:#eceae2;color:#79776b}
+    .chip{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:.3rem .6rem;font-size:.82rem}
+    .link-btn{background:none;border:none;color:var(--forest);text-decoration:underline;padding:.2rem;font-size:.85rem}
+
+    .sub-row{display:flex;align-items:center;gap:.6rem;padding:.55rem .2rem;border-bottom:1px solid var(--line)}
+    .sub-row .em{flex:1;font-size:.95rem;word-break:break-all}
+    .sub-row .st{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+
+    .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);
+      background:var(--forest);color:var(--cream);padding:.75rem 1.2rem;border-radius:10px;
+      box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transition:.25s;z-index:60;font-size:.95rem}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    .toast.err{background:var(--danger)}
+
+    .muted{color:var(--muted)}
+    .empty{text-align:center;color:var(--muted);padding:2.5rem 1rem}
+    .note{background:#fbf6e8;border:1px solid #eadfbf;border-radius:10px;padding:.8rem 1rem;font-size:.9rem;color:#6b5a2a;margin-bottom:1rem}
+    .row-between{display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap}
+    .flex-actions{display:flex;gap:.6rem;flex-wrap:wrap}
+  </style>
+</head>
+<body>
+
+  <!-- ============ LOGIN ============ -->
+  <div class="login-wrap" id="loginWrap">
+    <form class="login-card" id="loginForm">
+      <h1>Bank Street Quarters</h1>
+      <p class="sub">Owner Dashboard</p>
+      <input type="password" id="pw" placeholder="Password" autocomplete="current-password" required />
+      <button class="btn" type="submit" id="loginBtn">Sign in</button>
+      <p class="sub" id="loginErr" style="color:var(--danger);min-height:1.2em;margin-top:.8rem"></p>
+    </form>
+  </div>
+
+  <!-- ============ APP ============ -->
+  <div class="app" id="app">
+    <header class="top">
+      <div class="brand">Bank Street<small>Owner Dashboard</small></div>
+      <div class="spacer"></div>
+      <button class="logout" id="logoutBtn">Sign out</button>
+    </header>
+    <nav class="tabs" id="tabs">
+      <button data-tab="dashboard" class="active">Dashboard</button>
+      <button data-tab="inquiries">Inquiries</button>
+      <button data-tab="pricing">Pricing</button>
+      <button data-tab="email">Email List</button>
+      <button data-tab="settings">Settings</button>
+    </nav>
+
+    <main>
+      <!-- Dashboard -->
+      <section class="view on" id="v-dashboard">
+        <h2 class="view-title">Dashboard</h2>
+        <p class="view-sub">A quick pulse on your quarters.</p>
+        <div class="tiles" id="dashTiles"></div>
+        <div class="card">
+          <h3>Analytics</h3>
+          <p class="hint">Full traffic, sources, and page performance live in Google Analytics.</p>
+          <a class="btn small" target="_blank" rel="noopener"
+             href="https://analytics.google.com/analytics/web/">Open Google Analytics →</a>
+        </div>
+        <div class="card">
+          <h3>Latest inquiries</h3>
+          <div id="dashInquiries"></div>
+        </div>
+      </section>
+
+      <!-- Inquiries -->
+      <section class="view" id="v-inquiries">
+        <div class="row-between">
+          <div>
+            <h2 class="view-title">Inquiries</h2>
+            <p class="view-sub">Everyone who reached out through the site.</p>
+          </div>
+          <select class="inp" id="inqFilter" style="width:auto">
+            <option value="all">All</option>
+            <option value="new">New</option>
+            <option value="contacted">Contacted</option>
+            <option value="booked">Booked</option>
+            <option value="closed">Closed</option>
+          </select>
+        </div>
+        <div id="inqList"></div>
+      </section>
+
+      <!-- Pricing -->
+      <section class="view" id="v-pricing">
+        <h2 class="view-title">Pricing &amp; Reviews</h2>
+        <p class="view-sub">Type a number, press Save. The website updates within a minute.</p>
+        <div class="card">
+          <h3>Nightly rates — short stays</h3>
+          <p class="hint">Leave blank to show “See live rates on Airbnb/VRBO” instead of a number.</p>
+          <div class="price-unit">
+            <h4>The Mint <span class="badge">Airbnb</span></h4>
+            <div class="grid2">
+              <div class="field"><label>From / night ($)</label>
+                <div class="row"><span class="prefix">$</span><input class="inp" id="p-mint-nightly" inputmode="numeric" placeholder="e.g. 149"></div></div>
+              <div class="field"><label>Rating &amp; reviews</label>
+                <div class="row">
+                  <input class="inp" id="r-mint-score" style="width:70px" placeholder="10">
+                  <span class="muted">/</span>
+                  <input class="inp" id="r-mint-scale" style="width:56px" placeholder="10">
+                  <input class="inp" id="r-mint-count" inputmode="numeric" style="width:80px" placeholder="34">
+                  <span class="muted" style="font-size:.8rem">reviews</span>
+                </div></div>
+            </div>
+          </div>
+          <div class="price-unit">
+            <h4>The Vault <span class="badge">VRBO</span></h4>
+            <div class="grid2">
+              <div class="field"><label>From / night ($)</label>
+                <div class="row"><span class="prefix">$</span><input class="inp" id="p-vault-nightly" inputmode="numeric" placeholder="e.g. 459"></div></div>
+              <div class="field"><label>Rating &amp; reviews</label>
+                <div class="row">
+                  <input class="inp" id="r-vault-score" style="width:70px" placeholder="10">
+                  <span class="muted">/</span>
+                  <input class="inp" id="r-vault-scale" style="width:56px" placeholder="10">
+                  <input class="inp" id="r-vault-count" inputmode="numeric" style="width:80px" placeholder="24">
+                  <span class="muted" style="font-size:.8rem">reviews</span>
+                </div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Monthly rents — leases</h3>
+          <div class="grid2">
+            <div class="price-unit"><h4>The Trust <span class="badge lease">Lease</span></h4>
+              <div class="field"><label>Per month ($)</label>
+                <div class="row"><span class="prefix">$</span><input class="inp" id="p-trust-monthly" inputmode="numeric" placeholder="2100"></div></div></div>
+            <div class="price-unit"><h4>The Teller <span class="badge lease">Lease</span></h4>
+              <div class="field"><label>Per month ($)</label>
+                <div class="row"><span class="prefix">$</span><input class="inp" id="p-teller-monthly" inputmode="numeric" placeholder="2650"></div></div></div>
+          </div>
+        </div>
+        <button class="btn" id="savePricing">Save changes</button>
+      </section>
+
+      <!-- Email -->
+      <section class="view" id="v-email">
+        <h2 class="view-title">Email List</h2>
+        <p class="view-sub">Your subscribers, and the newsletters you send them.</p>
+        <div class="note" id="emailNotConfigured" hidden>
+          ✉️ Sending isn’t connected yet. You can still collect subscribers now — add
+          <b>RESEND_API_KEY</b> and <b>RESEND_FROM</b> in Netlify to enable sending.
+        </div>
+        <div class="tiles" id="subTiles"></div>
+
+        <div class="card">
+          <h3>Compose a newsletter</h3>
+          <p class="hint">Sent to every active subscriber. An unsubscribe link is added automatically.</p>
+          <div class="field"><label>Subject</label><input class="inp" id="campSubject" placeholder="A little news from Bank Street"></div>
+          <div class="field"><label>Message</label>
+            <textarea class="inp" id="campBody" placeholder="Write your update… Basic HTML is supported (e.g. <b>bold</b>, links)."></textarea></div>
+          <div class="flex-actions">
+            <button class="btn small secondary" id="sendTest">Send test to me</button>
+            <button class="btn small" id="sendCampaign">Send to all subscribers</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row-between" style="margin-bottom:.6rem">
+            <h3 style="margin:0">Subscribers</h3>
+            <div class="flex-actions">
+              <button class="btn small secondary" id="addSubBtn">+ Add</button>
+              <button class="btn small secondary" id="exportSubBtn">Export CSV</button>
+            </div>
+          </div>
+          <div id="subList"></div>
+        </div>
+      </section>
+
+      <!-- Settings -->
+      <section class="view" id="v-settings">
+        <h2 class="view-title">Settings</h2>
+        <p class="view-sub">How the dashboard is wired up.</p>
+        <div class="card">
+          <h3>Your login</h3>
+          <p class="hint">Your password is set in Netlify (environment variable <b>ADMIN_PASSWORD</b>).
+            To change it, update that value in the Netlify dashboard.</p>
+        </div>
+        <div class="card">
+          <h3>Notifications</h3>
+          <p class="hint">New inquiries are emailed to the address in <b>NOTIFY_EMAIL</b>. Update it in Netlify to change where alerts go.</p>
+        </div>
+        <div class="card">
+          <h3>Connections</h3>
+          <p class="hint" id="connStatus">Checking…</p>
+        </div>
+        <button class="btn secondary" id="logoutBtn2">Sign out</button>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+  (function(){
+    var FN = '/.netlify/functions/';
+    var $ = function(s,r){return (r||document).querySelector(s)};
+    var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+    var state = { inquiries:[], subscribers:[], config:null, emailConfigured:false };
+
+    function toast(msg, err){
+      var t=$('#toast'); t.textContent=msg; t.className='toast show'+(err?' err':'');
+      setTimeout(function(){t.className='toast'+(err?' err':'')},2600);
+    }
+    function api(path, opts){
+      opts=opts||{};
+      return fetch(FN+path, Object.assign({credentials:'same-origin',headers:{'Content-Type':'application/json'}}, opts))
+        .then(function(r){
+          if(r.status===401){ showLogin(); throw new Error('unauthorized'); }
+          return r.json().catch(function(){return {}}).then(function(b){ if(!r.ok) throw new Error(b.error||('HTTP '+r.status)); return b; });
+        });
+    }
+    function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])})}
+
+    /* ---------- Auth ---------- */
+    function showLogin(){ $('#app').classList.remove('on'); $('#loginWrap').style.display='grid'; }
+    function showApp(){ $('#loginWrap').style.display='none'; $('#app').classList.add('on'); }
+
+    $('#loginForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      var btn=$('#loginBtn'); btn.disabled=true; $('#loginErr').textContent='';
+      api('admin-login',{method:'POST',body:JSON.stringify({password:$('#pw').value})})
+        .then(function(){ $('#pw').value=''; showApp(); boot(); })
+        .catch(function(err){ $('#loginErr').textContent = err.message==='unauthorized'?'Incorrect password':err.message; })
+        .finally(function(){ btn.disabled=false; });
+    });
+    function logout(){ api('admin-login',{method:'DELETE'}).finally(showLogin); }
+    $('#logoutBtn').addEventListener('click', logout);
+    $('#logoutBtn2').addEventListener('click', logout);
+
+    /* ---------- Tabs ---------- */
+    $$('#tabs button').forEach(function(b){
+      b.addEventListener('click', function(){ selectTab(b.dataset.tab); });
+    });
+    function selectTab(name){
+      $$('#tabs button').forEach(function(b){b.classList.toggle('active', b.dataset.tab===name)});
+      $$('.view').forEach(function(v){v.classList.toggle('on', v.id==='v-'+name)});
+      if(location.hash!=='#'+name) history.replaceState(null,'','#'+name);
+    }
+
+    /* ---------- Dashboard ---------- */
+    function renderDashboard(){
+      var inq=state.inquiries;
+      var nu=inq.filter(function(q){return q.status==='new'}).length;
+      var week=Date.now()-7*864e5;
+      var wk=inq.filter(function(q){return new Date(q.createdAt).getTime()>week}).length;
+      var active=state.subscribers.filter(function(s){return s.status==='subscribed'}).length;
+      $('#dashTiles').innerHTML =
+        tile(nu,'New inquiries', nu>0) + tile(wk,'Inquiries · 7 days') +
+        tile(inq.length,'Total inquiries') + tile(active,'Email subscribers');
+      var latest=inq.slice(0,3);
+      $('#dashInquiries').innerHTML = latest.length ? latest.map(inqCardMini).join('') :
+        '<p class="muted">No inquiries yet.</p>';
+    }
+    function tile(n,l,alert){return '<div class="tile'+(alert?' alert':'')+'"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>'}
+    function inqCardMini(q){
+      return '<div style="padding:.5rem 0;border-bottom:1px solid var(--line)"><b>'+esc(q.name||'—')+'</b> '+
+        '<span class="pill '+q.status+'">'+q.status+'</span><div class="muted" style="font-size:.85rem">'+
+        esc(q.property||'')+(q.property?' · ':'')+esc(q.dates||'')+'</div></div>';
+    }
+
+    /* ---------- Inquiries ---------- */
+    $('#inqFilter').addEventListener('change', renderInquiries);
+    function renderInquiries(){
+      var f=$('#inqFilter').value;
+      var list=state.inquiries.filter(function(q){return f==='all'||q.status===f});
+      var el=$('#inqList');
+      if(!list.length){ el.innerHTML='<div class="empty">No inquiries here yet.</div>'; return; }
+      el.innerHTML=list.map(inqCard).join('');
+      $$('.inq',el).forEach(bindInq);
+    }
+    function inqCard(q){
+      var phone=(q.phone||'').replace(/[^0-9+]/g,'');
+      return '<div class="inq" data-id="'+q.id+'">'+
+        '<div class="head"><span class="name">'+esc(q.name||'Guest')+'</span>'+
+          '<span class="pill '+q.status+'">'+q.status+'</span>'+
+          '<span class="when">'+fmtDate(q.createdAt)+'</span></div>'+
+        '<div class="meta">'+
+          (q.property?'<span class="chip">'+esc(q.property)+'</span> ':'')+
+          (q.dates?'<span class="chip">'+esc(q.dates)+'</span> ':'')+
+        '</div>'+
+        '<div class="meta">'+
+          (q.phone?'📞 <a href="tel:'+esc(phone)+'">'+esc(q.phone)+'</a> &nbsp; ':'')+
+          (q.phone?'<a href="sms:'+esc(phone)+'">Text</a> &nbsp; ':'')+
+          (q.email?'✉️ <a href="mailto:'+esc(q.email)+'">'+esc(q.email)+'</a>':'')+
+        '</div>'+
+        (q.message?'<div class="msg">'+esc(q.message)+'</div>':'')+
+        '<div class="acts">'+
+          '<select class="inp st-sel" style="width:auto;padding:.35rem .6rem">'+
+            ['new','contacted','booked','closed'].map(function(s){return '<option value="'+s+'"'+(q.status===s?' selected':'')+'>'+s+'</option>'}).join('')+
+          '</select>'+
+          '<button class="link-btn notes-btn">Notes</button>'+
+          '<button class="link-btn del-btn" style="color:var(--danger);margin-left:auto">Delete</button>'+
+        '</div>'+
+        '<div class="notes-box" hidden style="margin-top:.5rem">'+
+          '<textarea class="inp notes-ta" placeholder="Private notes…">'+esc(q.notes||'')+'</textarea>'+
+          '<button class="btn small notes-save" style="margin-top:.4rem">Save notes</button>'+
+        '</div>'+
+      '</div>';
+    }
+    function bindInq(el){
+      var id=el.dataset.id;
+      $('.st-sel',el).addEventListener('change', function(){
+        api('admin-inquiries',{method:'PATCH',body:JSON.stringify({id:id,status:this.value})})
+          .then(function(b){ state.inquiries=b.inquiries; renderInquiries(); renderDashboard(); toast('Status updated'); })
+          .catch(function(e){toast(e.message,true)});
+      });
+      $('.notes-btn',el).addEventListener('click', function(){ var b=$('.notes-box',el); b.hidden=!b.hidden; });
+      $('.notes-save',el).addEventListener('click', function(){
+        api('admin-inquiries',{method:'PATCH',body:JSON.stringify({id:id,notes:$('.notes-ta',el).value})})
+          .then(function(b){ state.inquiries=b.inquiries; toast('Notes saved'); })
+          .catch(function(e){toast(e.message,true)});
+      });
+      $('.del-btn',el).addEventListener('click', function(){
+        if(!confirm('Delete this inquiry?')) return;
+        api('admin-inquiries',{method:'DELETE',body:JSON.stringify({id:id})})
+          .then(function(b){ state.inquiries=b.inquiries; renderInquiries(); renderDashboard(); toast('Deleted'); })
+          .catch(function(e){toast(e.message,true)});
+      });
+    }
+
+    /* ---------- Pricing ---------- */
+    function fillPricing(){
+      var c=state.config; if(!c) return;
+      $('#p-mint-nightly').value = c.prices.mint.nightly ?? '';
+      $('#p-vault-nightly').value = c.prices.vault.nightly ?? '';
+      $('#p-trust-monthly').value = c.prices.trust.monthly ?? '';
+      $('#p-teller-monthly').value = c.prices.teller.monthly ?? '';
+      ['mint','vault'].forEach(function(u){
+        $('#r-'+u+'-score').value=c.reviews[u].score||'';
+        $('#r-'+u+'-scale').value=c.reviews[u].scale||'';
+        $('#r-'+u+'-count').value=c.reviews[u].count!=null?c.reviews[u].count:'';
+      });
+    }
+    $('#savePricing').addEventListener('click', function(){
+      var payload={ prices:{
+        mint:{nightly:$('#p-mint-nightly').value}, vault:{nightly:$('#p-vault-nightly').value},
+        trust:{monthly:$('#p-trust-monthly').value}, teller:{monthly:$('#p-teller-monthly').value}
+      }, reviews:{
+        mint:{score:$('#r-mint-score').value,scale:$('#r-mint-scale').value,count:$('#r-mint-count').value},
+        vault:{score:$('#r-vault-score').value,scale:$('#r-vault-scale').value,count:$('#r-vault-count').value}
+      }};
+      this.disabled=true;
+      api('admin-config',{method:'PUT',body:JSON.stringify(payload)})
+        .then(function(b){ state.config=b.config; fillPricing(); toast('Saved — the site will update shortly'); })
+        .catch(function(e){toast(e.message,true)})
+        .finally(function(){ $('#savePricing').disabled=false; });
+    });
+
+    /* ---------- Email ---------- */
+    function renderSubscribers(){
+      var subs=state.subscribers;
+      var active=subs.filter(function(s){return s.status==='subscribed'});
+      $('#subTiles').innerHTML = tile(active.length,'Active subscribers') + tile(subs.length-active.length,'Unsubscribed');
+      var el=$('#subList');
+      if(!subs.length){ el.innerHTML='<p class="muted">No subscribers yet. Add the signup box to your site and they’ll appear here.</p>'; return; }
+      el.innerHTML=subs.slice().sort(function(a,b){return (b.createdAt||'').localeCompare(a.createdAt||'')})
+        .map(function(s){
+          return '<div class="sub-row"><span class="em">'+esc(s.email)+'</span>'+
+            '<span class="st">'+esc(s.status)+'</span>'+
+            '<button class="link-btn del-sub" data-e="'+esc(s.email)+'" style="color:var(--danger)">Remove</button></div>';
+        }).join('');
+      $$('.del-sub',el).forEach(function(b){
+        b.addEventListener('click', function(){
+          if(!confirm('Remove '+b.dataset.e+'?')) return;
+          api('admin-subscribers',{method:'DELETE',body:JSON.stringify({email:b.dataset.e})})
+            .then(function(r){ state.subscribers=r.subscribers; renderSubscribers(); renderDashboard(); toast('Removed'); })
+            .catch(function(e){toast(e.message,true)});
+        });
+      });
+      $('#emailNotConfigured').hidden = state.emailConfigured;
+    }
+    $('#addSubBtn').addEventListener('click', function(){
+      var e=prompt('Email address to add:'); if(!e) return;
+      api('admin-subscribers',{method:'POST',body:JSON.stringify({email:e})})
+        .then(function(r){ state.subscribers=r.subscribers; renderSubscribers(); renderDashboard(); toast('Added'); })
+        .catch(function(err){toast(err.message,true)});
+    });
+    $('#exportSubBtn').addEventListener('click', function(){
+      var rows=[['email','status','source','created']].concat(state.subscribers.map(function(s){
+        return [s.email,s.status,s.source||'',s.createdAt||''];
+      }));
+      var csv=rows.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"'}).join(',')}).join('\n');
+      var a=document.createElement('a');
+      a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+      a.download='subscribers.csv'; a.click();
+    });
+    $('#sendTest').addEventListener('click', function(){ sendCampaign(true); });
+    $('#sendCampaign').addEventListener('click', function(){ sendCampaign(false); });
+    function sendCampaign(isTest){
+      var subject=$('#campSubject').value.trim(), body=$('#campBody').value.trim();
+      if(!subject||!body){ toast('Add a subject and message first',true); return; }
+      var payload={subject:subject,body:body};
+      if(isTest){ var t=prompt('Send a test to which email?'); if(!t) return; payload.test=t; }
+      else if(!confirm('Send to all '+state.subscribers.filter(function(s){return s.status==='subscribed'}).length+' active subscribers?')) return;
+      $('#sendTest').disabled=$('#sendCampaign').disabled=true;
+      api('admin-campaign',{method:'POST',body:JSON.stringify(payload)})
+        .then(function(r){ toast(isTest?'Test sent':('Sent to '+r.sent+' subscriber'+(r.sent===1?'':'s'))); if(!isTest){$('#campSubject').value='';$('#campBody').value='';} })
+        .catch(function(e){toast(e.message,true)})
+        .finally(function(){ $('#sendTest').disabled=$('#sendCampaign').disabled=false; });
+    }
+
+    /* ---------- Settings ---------- */
+    function renderConnections(){
+      $('#connStatus').innerHTML =
+        'Email sending: <b>'+(state.emailConfigured?'Connected ✓':'Not connected')+'</b><br>'+
+        'Inquiry capture: <b>Active ✓</b><br>'+
+        'Price control: <b>Active ✓</b>';
+    }
+
+    /* ---------- Boot ---------- */
+    function fmtDate(iso){ try{var d=new Date(iso);return d.toLocaleDateString(undefined,{month:'short',day:'numeric'})+' · '+d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}catch(e){return ''} }
+    function boot(){
+      Promise.all([
+        api('admin-config').then(function(c){state.config=c}),
+        api('admin-inquiries').then(function(b){state.inquiries=b.inquiries||[]}),
+        api('admin-subscribers').then(function(b){state.subscribers=b.subscribers||[]}),
+        api('admin-campaign').then(function(b){ state.emailConfigured = b.emailConfigured!==false; }).catch(function(){})
+      ].map(function(p){return p.catch(function(){})})).then(function(){
+        // emailConfigured is inferred from the campaign endpoint note; default true unless told otherwise
+        fillPricing(); renderDashboard(); renderInquiries(); renderSubscribers(); renderConnections();
+        var tab=(location.hash||'#dashboard').slice(1);
+        if(['dashboard','inquiries','pricing','email','settings'].indexOf(tab)>=0) selectTab(tab);
+      });
+    }
+
+    // Try existing session first.
+    api('admin-config').then(function(c){ state.config=c; showApp(); boot(); })
+      .catch(function(){ showLogin(); });
+  })();
+  </script>
+</body>
+</html>

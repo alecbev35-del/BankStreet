@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /.netlify/functions/admin-
 
 Sitemap: https://stayatbankstreet.com/sitemap.xml

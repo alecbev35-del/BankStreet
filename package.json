@@ -1,0 +1,9 @@
+{
+  "name": "bank-street-quarters",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bank Street Quarters website + owner CRM (Netlify Functions & Blobs).",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

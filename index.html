@@ -2279,6 +2279,57 @@
       font-size: 0.9rem;
     }
 
+    .footer-signup {
+      max-width: 440px;
+      margin: 0 auto 2.25rem;
+    }
+    .footer-signup label {
+      display: block;
+      font-family: 'Cormorant', serif;
+      font-size: 1.25rem;
+      color: var(--cream);
+      margin-bottom: 0.7rem;
+    }
+    .footer-signup-row {
+      display: flex;
+      gap: 0.5rem;
+      position: relative;
+    }
+    .footer-signup input[type="email"] {
+      flex: 1;
+      padding: 0.7rem 0.9rem;
+      border: 1px solid rgba(244, 239, 225, 0.45);
+      border-radius: 8px;
+      background: rgba(244, 239, 225, 0.08);
+      color: var(--cream);
+      font-family: 'Cormorant', serif;
+      font-size: 1.05rem;
+    }
+    .footer-signup input[type="email"]::placeholder { color: rgba(244, 239, 225, 0.55); }
+    .footer-signup input[type="email"]:focus { outline: 2px solid var(--brass); outline-offset: 1px; }
+    .footer-signup button {
+      padding: 0.7rem 1.2rem;
+      border: 1px solid var(--cream);
+      border-radius: 8px;
+      background: var(--cream);
+      color: var(--forest);
+      font-family: 'Cormorant', serif;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .footer-signup button:hover { background: #fff; }
+    .footer-signup button[disabled] { opacity: 0.55; cursor: default; }
+    .footer-signup-msg {
+      margin: 0.7rem 0 0;
+      font-size: 0.95rem;
+      color: var(--brass);
+      min-height: 1.2em;
+    }
+
     footer .tagline {
       font-family: 'Cormorant', serif;
       font-style: italic;
@@ -2350,7 +2401,7 @@
               <tr><th scope="row">Bathrooms</th><td>1</td><td>3.5</td><td>2</td><td>2</td></tr>
               <tr><th scope="row">Sq Ft</th><td>250</td><td>2,400</td><td>1,100</td><td>1,100</td></tr>
               <tr><th scope="row">Stay type</th><td>Short stay</td><td>Short stay</td><td>Monthly lease</td><td>Monthly lease</td></tr>
-              <tr><th scope="row">Price</th><td>from $—</td><td>from $—</td><td>$2,100 / mo</td><td>$2,650 / mo</td></tr>
+              <tr><th scope="row">Price</th><td id="cmp-mint-price">See listing</td><td id="cmp-vault-price">See listing</td><td id="cmp-trust-price">$2,100 / mo</td><td id="cmp-teller-price">$2,650 / mo</td></tr>
               <tr><th scope="row">Pets</th><td class="x">✗</td><td class="x">✗</td><td class="check">✓ Dogs</td><td class="check">✓ Dogs &amp; cats</td></tr>
               <tr><th scope="row">Parking</th><td class="check">✓ Reserved</td><td class="check">✓ Private</td><td class="check">✓ 2 spaces</td><td class="check">✓ Contact</td></tr>
               <tr><th scope="row">Furnished</th><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
@@ -2553,11 +2604,11 @@
       <!-- Guest-review summary -->
       <div class="reviews-summary">
         <div class="reviews-score">
-          <span class="reviews-num">10</span><span class="reviews-denom">/10</span>
+          <span class="reviews-num" id="mint-rev-num">10</span><span class="reviews-denom" id="mint-rev-denom">/10</span>
         </div>
         <div class="reviews-meta">
-          <div class="reviews-title">Exceptional</div>
-          <div class="reviews-count">22 verified reviews</div>
+          <div class="reviews-title" id="mint-rev-title">Exceptional</div>
+          <div class="reviews-count" id="mint-rev-count">22 verified reviews</div>
         </div>
         <div class="reviews-cats">
           <div class="cat"><span class="cat-label">Cleanliness</span><span class="cat-num">9.8</span></div>
@@ -2659,8 +2710,8 @@
         </div>
 
         <aside class="property-book">
-          <div class="book-rate">
-            <span class="rate-num">$—</span>
+          <div class="book-rate" id="mint-book-rate" hidden>
+            <span class="rate-num" id="mint-rate-num"></span>
             <span class="rate-label">/ night</span>
           </div>
           <p class="rate-meta">All-inclusive pricing. No hidden fees.</p>
@@ -2670,7 +2721,7 @@
             <li>Sleeps 2 · 1 bed · 1 bath · 250 sq ft</li>
             <li>Reserved parking included</li>
             <li>Self check-in with a personal touch</li>
-            <li>10/10 rating · 22 verified reviews</li>
+            <li id="mint-rev-line">10/10 rating · 22 verified reviews</li>
           </ul>
           <div class="availability" data-availability="mint" hidden>
             <div class="avail-head">
@@ -2717,11 +2768,11 @@
       <!-- Guest-review summary -->
       <div class="reviews-summary">
         <div class="reviews-score">
-          <span class="reviews-num">10</span><span class="reviews-denom">/10</span>
+          <span class="reviews-num" id="vault-rev-num">10</span><span class="reviews-denom" id="vault-rev-denom">/10</span>
         </div>
         <div class="reviews-meta">
-          <div class="reviews-title">Loved by Guests</div>
-          <div class="reviews-count">Top 10% of guest reviews in this area · 16 verified reviews</div>
+          <div class="reviews-title" id="vault-rev-title">Loved by Guests</div>
+          <div class="reviews-count" id="vault-rev-count">Top 10% of guest reviews in this area · 16 verified reviews</div>
         </div>
         <div class="reviews-cats">
           <div class="cat"><span class="cat-label">Cleanliness</span><span class="cat-num">10</span></div>
@@ -2903,8 +2954,8 @@
         </div>
 
         <aside class="property-book">
-          <div class="book-rate">
-            <span class="rate-num">$—</span>
+          <div class="book-rate" id="vault-book-rate" hidden>
+            <span class="rate-num" id="vault-rate-num"></span>
             <span class="rate-label">/ night</span>
           </div>
           <p class="rate-meta">All-inclusive pricing. No hidden fees.</p>
@@ -3642,6 +3693,15 @@
   </div>
 
   <footer>
+    <form class="footer-signup" id="newsletterForm" aria-label="Newsletter signup">
+      <label for="nl-email">Stay in the loop — local happenings &amp; openings</label>
+      <div class="footer-signup-row">
+        <input id="nl-email" type="email" name="email" placeholder="you@email.com" autocomplete="email" required />
+        <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" />
+        <button type="submit">Subscribe</button>
+      </div>
+      <p class="footer-signup-msg" id="nlMsg" role="status" hidden></p>
+    </form>
     <div class="brand">Bank Street Quarters</div>
     <div class="tagline">A Great Place to Stay</div>
   </footer>
@@ -3938,19 +3998,28 @@
       position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 9999;
       max-width: 640px; margin: 0 auto; display: flex; flex-wrap: wrap;
       align-items: center; gap: 0.75rem 1.25rem;
-      background: #354830; color: #f4efe1;
-      padding: 1rem 1.25rem; border-radius: 12px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.28);
+      background: rgba(53,72,48,0.55);
+      -webkit-backdrop-filter: blur(16px) saturate(150%);
+      backdrop-filter: blur(16px) saturate(150%);
+      color: #f4efe1;
+      padding: 1rem 1.25rem; border-radius: 14px;
+      border: 1px solid rgba(244,239,225,0.30);
+      box-shadow: 0 10px 34px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.18);
       font-family: 'Cormorant', Georgia, serif;
     }
-    .cookie-text { margin: 0; flex: 1 1 260px; font-size: 1.05rem; line-height: 1.4; }
+    .cookie-text { margin: 0; flex: 1 1 260px; font-size: 1.05rem; line-height: 1.4;
+      color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.45); }
     .cookie-actions { display: flex; gap: 0.6rem; margin-left: auto; }
     .cookie-btn {
-      font: inherit; font-size: 1rem; cursor: pointer; border: 1px solid #f4efe1;
-      background: #f4efe1; color: #354830; padding: 0.45rem 1.1rem; border-radius: 8px;
+      font-family: 'Cormorant', Georgia, serif; font-size: 0.95rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer;
+      border: 1px solid #f4efe1; background: #f4efe1; color: #354830;
+      padding: 0.55rem 1.35rem; border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
     }
     .cookie-btn--ghost { background: transparent; color: #f4efe1; }
-    .cookie-btn:hover { opacity: 0.88; }
+    .cookie-btn:hover { background: #fff; }
+    .cookie-btn--ghost:hover { background: rgba(244,239,225,0.14); color: #f4efe1; }
     @media (max-width: 480px) { .cookie-actions { width: 100%; } .cookie-btn { flex: 1; } }
   </style>
   <script>
@@ -4064,6 +4133,90 @@
 
       document.querySelectorAll('[data-availability]').forEach(function (el) {
         setup(el, el.getAttribute('data-availability'));
+      });
+    })();
+  </script>
+
+  <!-- ===== Live config (prices + review counts, managed in the owner CRM) ===== -->
+  <script>
+    (function () {
+      function setText(id, text) { var el = document.getElementById(id); if (el) el.textContent = text; }
+      function money(n) { return '$' + Number(n).toLocaleString('en-US'); }
+
+      fetch('/.netlify/functions/config')
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (c) {
+          var p = c.prices || {}, rv = c.reviews || {};
+
+          // Nightly rates — short stays. A number shows "from $X / night" in the
+          // sidebar and "from $X" in the compare table; blank keeps the graceful
+          // "See listing" fallback and hides the empty rate block.
+          [['mint', 'mint'], ['vault', 'vault']].forEach(function (pair) {
+            var key = pair[0];
+            var nightly = p[key] && p[key].nightly;
+            if (nightly) {
+              var rateEl = document.getElementById(key + '-rate-num');
+              var box = document.getElementById(key + '-book-rate');
+              if (rateEl) rateEl.textContent = money(nightly);
+              if (box) box.hidden = false;
+              setText('cmp-' + key + '-price', 'from ' + money(nightly));
+            }
+          });
+
+          // Monthly rents — keep in sync if changed in the CRM.
+          if (p.trust && p.trust.monthly) setText('cmp-trust-price', money(p.trust.monthly) + ' / mo');
+          if (p.teller && p.teller.monthly) setText('cmp-teller-price', money(p.teller.monthly) + ' / mo');
+
+          // Review score + counts per short-stay unit.
+          ['mint', 'vault'].forEach(function (key) {
+            var r = rv[key]; if (!r) return;
+            if (r.score) setText(key + '-rev-num', r.score);
+            if (r.scale) setText(key + '-rev-denom', '/' + r.scale);
+            if (r.label) setText(key + '-rev-title', r.label);
+            if (r.count != null) {
+              setText(key + '-rev-count', r.count + ' verified reviews');
+              var line = document.getElementById(key + '-rev-line');
+              if (line && r.score && r.scale) line.textContent = r.score + '/' + r.scale + ' rating · ' + r.count + ' verified reviews';
+            }
+          });
+        })
+        .catch(function () { /* leave the built-in defaults in place */ });
+    })();
+  </script>
+
+  <!-- ===== Newsletter signup (footer) -> CRM email list ===== -->
+  <script>
+    (function () {
+      var form = document.getElementById('newsletterForm');
+      if (!form) return;
+      var msg = document.getElementById('nlMsg');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = document.getElementById('nl-email').value.trim();
+        var company = form.querySelector('input[name="company"]').value;
+        var btn = form.querySelector('button');
+        btn.disabled = true;
+        fetch('/.netlify/functions/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, company: company, source: 'footer' })
+        })
+          .then(function (r) { return r.json().catch(function () { return {}; }).then(function (b) { return { ok: r.ok, b: b }; }); })
+          .then(function (res) {
+            if (res.ok) {
+              form.querySelector('.footer-signup-row').style.display = 'none';
+              msg.hidden = false;
+              msg.textContent = 'Thank you — you’re on the list.';
+              if (window.gtag) gtag('event', 'newsletter_signup');
+            } else {
+              msg.hidden = false;
+              msg.textContent = (res.b && res.b.error) || 'Something went wrong — please try again.';
+              btn.disabled = false;
+            }
+          })
+          .catch(function () {
+            msg.hidden = false; msg.textContent = 'Something went wrong — please try again.'; btn.disabled = false;
+          });
       });
     })();
   </script>
